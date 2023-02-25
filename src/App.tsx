@@ -60,7 +60,7 @@ function App() {
       if (profileObj) {
         // const response = await fetch("http://localhost:8080/api/v1/users", {
         const response = await fetch(
-          "https://dashboard-server-817q.onrender.com/api/v1/users",
+          "https://dashboard-server-aq1z.onrender.com/api/v1/users",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -133,7 +133,7 @@ function App() {
         <Refine
           // dataProvider={dataProvider("http://localhost:8080/api/v1")}
           dataProvider={dataProvider(
-            "https://dashboard-server-817q.onrender.com"
+            "https://dashboard-server-aq1z.onrender.com"
           )}
           notificationProvider={notificationProvider}
           ReadyPage={ReadyPage}
