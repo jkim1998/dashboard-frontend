@@ -133,7 +133,7 @@ function App() {
         <Refine
           // dataProvider={dataProvider("http://localhost:8080/api/v1")}
           dataProvider={dataProvider(
-            "https://dashboard-server-aq1z.onrender.com"
+            "https://dashboard-server-aq1z.onrender.com/api/v1"
           )}
           notificationProvider={notificationProvider}
           ReadyPage={ReadyPage}
