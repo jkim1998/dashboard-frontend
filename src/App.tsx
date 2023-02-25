@@ -36,6 +36,8 @@ import {
   CreateProperty,
   AgentProfile,
   EditProperty,
+  Tickets,
+  CreateTicket,
 } from "./pages";
 
 const axiosInstance = axios.create();
@@ -59,18 +61,17 @@ function App() {
 
       if (profileObj) {
         // const response = await fetch("http://localhost:8080/api/v1/users", {
-        const response = await fetch(
-          "https://dashboard-server-aq1z.onrender.com/api/v1/users",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              name: profileObj.name,
-              email: profileObj.email,
-              avatar: profileObj.picture,
-            }),
-          }
-        );
+          const response = await fetch(
+            "https://dashboard-server-aq1z.onrender.com/api/v1/users",
+            {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: profileObj.name,
+            email: profileObj.email,
+            avatar: profileObj.picture,
+          }),
+        });
 
         const data = await response.json();
 
@@ -154,8 +155,9 @@ function App() {
               icon: <PeopleAltOutlined />,
             },
             {
-              name: "reviews",
-              list: Home,
+              name: "tickets",
+              list: Tickets,
+              create: CreateTicket,
               icon: <StarOutlineRounded />,
             },
             {

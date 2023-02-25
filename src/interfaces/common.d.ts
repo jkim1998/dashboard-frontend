@@ -28,6 +28,7 @@ export interface PropertyProps {
 }
 
 export interface FormProps {
+    title: string,
     type: string,
     register: any,
     onFinish: (values: FieldValues) => Promise<void | CreateResponse<BaseRecord> | UpdateResponse<BaseRecord>>,

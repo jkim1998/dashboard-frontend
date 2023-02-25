@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useGetIdentity } from "@pankod/refine-core";
 import { FieldValues, useForm } from "@pankod/refine-react-hook-form";
+
 import Form from "components/common/Form";
 
 const CreateProperty = () => {
@@ -26,7 +27,7 @@ const CreateProperty = () => {
   };
 
   const onFinishHandler = async (data: FieldValues) => {
-    if (!propertyImage.name) return alert("Please upload a property image");
+    if (!propertyImage.name) return alert("Please select an image");
 
     await onFinish({
       ...data,
@@ -37,7 +38,8 @@ const CreateProperty = () => {
 
   return (
     <Form
-      type="Edit"
+      title="property"
+      type="Create"
       register={register}
       onFinish={onFinish}
       formLoading={formLoading}
@@ -48,5 +50,4 @@ const CreateProperty = () => {
     />
   );
 };
-
 export default CreateProperty;
