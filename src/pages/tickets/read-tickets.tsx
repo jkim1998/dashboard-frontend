@@ -20,7 +20,7 @@ import { useMemo } from "react";
 
 import { ProjectCard, CustomButton, TicketCard } from "components";
 
-const tickets = () => {
+const ReadTickets = () => {
   const navigate = useNavigate();
   const { data, isLoading, isError } = useList({ resource: "tickets" });
 
@@ -88,4 +88,4 @@ const tickets = () => {
   );
 };
 
-export default tickets;
+export default ReadTickets;
