@@ -5,7 +5,7 @@ import {
   PieChart,
   PropertyReferrals,
   TotalRevenue,
-  PropertyCard,
+  ProjectCard,
 } from "components";
 
 const Home = () => {
@@ -82,7 +82,7 @@ const Home = () => {
 
         {/* <Box mt={2.5} sx={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
           {latestProperties.map((property) => (
-            <PropertyCard
+            <ProjectCard
               key={property._id}
               id={property._id}
               title={property.title}

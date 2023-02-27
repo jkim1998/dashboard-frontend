@@ -18,7 +18,7 @@ import {
 import { useNavigate } from "@pankod/refine-react-router-v6";
 import { useMemo } from "react";
 
-import { PropertyCard, CustomButton, TicketCard } from "components";
+import { ProjectCard, CustomButton, TicketCard } from "components";
 
 const tickets = () => {
   const navigate = useNavigate();

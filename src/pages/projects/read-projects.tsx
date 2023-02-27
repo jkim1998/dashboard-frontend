@@ -11,9 +11,9 @@ import {
 import { useNavigate } from "@pankod/refine-react-router-v6";
 import { useMemo } from "react";
 
-import { PropertyCard, CustomButton } from "components";
+import { ProjectCard, CustomButton } from "components";
 
-const AllProperties = () => {
+const readProjects = () => {
   const navigate = useNavigate();
 
   const {
@@ -28,7 +28,7 @@ const AllProperties = () => {
     setFilters,
   } = useTable();
 
-  const allProperties = data?.data ?? [];
+  const allProjects = data?.data ?? [];
 
   const currentPrice = sorter.find((item) => item.field === "price")?.order;
 
@@ -43,8 +43,8 @@ const AllProperties = () => {
 
     return {
       title: logicalFilters.find((item) => item.field === "title")?.value || "",
-      propertyType:
-        logicalFilters.find((item) => item.field === "propertyType")?.value ||
+      projectType:
+        logicalFilters.find((item) => item.field === "projectType")?.value ||
         "",
     };
   }, [filters]);
@@ -57,9 +57,7 @@ const AllProperties = () => {
       <Box mt="20px" sx={{ display: "flex", flexWrap: "wrap", gap: 3 }}>
         <Stack direction="column" width="100%">
           <Typography fontSize={25} fontWeight={700} color="#11142d">
-            {!allProperties.length
-              ? "There are no properties"
-              : "All Properties"}
+            {!allProjects.length ? "There are no projects" : "All projects"}
           </Typography>
           <Box
             mb={2}
@@ -105,12 +103,12 @@ const AllProperties = () => {
                 required
                 inputProps={{ "aria-label": "Without label" }}
                 defaultValue=""
-                value={currentFilterValues.propertyType}
+                value={currentFilterValues.projectType}
                 onChange={(e) => {
                   setFilters(
                     [
                       {
-                        field: "propertyType",
+                        field: "projectType",
                         operator: "eq",
                         value: e.target.value,
                       },
@@ -142,8 +140,8 @@ const AllProperties = () => {
 
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <CustomButton
-          title="Add Property"
-          handleClick={() => navigate("/properties/create")}
+          title="Add Project"
+          handleClick={() => navigate("/projects/create")}
           backgroundColor="#475be8"
           color="#fcfcfc"
           icon={<Add />}
@@ -151,19 +149,22 @@ const AllProperties = () => {
       </Stack>
 
       <Box mt="20px" sx={{ display: "flex", flexWrap: "wrap", gap: 3 }}>
-        {allProperties?.map((property) => (
-          <PropertyCard
-            key={property._id}
-            id={property._id}
-            title={property.title}
-            location={property.location}
-            price={property.price}
-            photo={property.photo}
+        {allProjects?.map((project) => (
+          <ProjectCard
+            key={project._id}
+            id={project._id}
+            title={project.title}
+            description={project.description}
+            projectType={project.projectType}
+            tag={project.tag}
+            photo={project.photo}
+            lead={project.lead}
+            members={project.members}
           />
         ))}
       </Box>
 
-      {allProperties.length > 0 && (
+      {allProjects.length > 0 && (
         <Box display="flex" gap={2} mt={3} flexWrap="wrap">
           <CustomButton
             title="Previous"
@@ -212,4 +213,4 @@ const AllProperties = () => {
   );
 };
 
-export default AllProperties;
+export default readProjects;

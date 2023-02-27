@@ -6,7 +6,7 @@ import { AgentCard, CustomButton } from "components";
 const Agents = () => {
   const { data, isLoading, isError } = useList({ resource: "users" });
 
-  const allAgents = data?.data ?? [];
+  const allEmployees = data?.data ?? [];
 
   if (isLoading) return <div>loading...</div>;
   if (isError) return <div>error...</div>;
@@ -27,14 +27,14 @@ const Agents = () => {
             backgroundColor: "#fcfcfc",
           }}
         >
-          {allAgents.map((agent) => (
+          {allEmployees.map((employee) => (
             <AgentCard
-              key={agent._id}
-              id={agent._id}
-              name={agent.name}
-              email={agent.email}
-              avatar={agent.avatar}
-              noOfProperties={agent.allProperties.length}
+              key={employee._id}
+              id={employee._id}
+              name={employee.name}
+              email={employee.email}
+              avatar={employee.avatar}
+              noOfProperties={employee.allProperties.length}
             />
           ))}
         </Box>

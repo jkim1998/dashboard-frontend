@@ -3,9 +3,9 @@ import { useGetIdentity } from "@pankod/refine-core";
 import { FieldValues, useForm } from "@pankod/refine-react-hook-form";
 import Form from "components/common/Form";
 
-const CreateProperty = () => {
+const UpdateProject = () => {
   const { data: user } = useGetIdentity();
-  const [propertyImage, setPropertyImage] = useState({ name: "", url: "" });
+  const [screenshot, setProjectImage] = useState({ name: "", url: "" });
   const {
     refineCore: { onFinish, formLoading },
     register,
@@ -21,23 +21,23 @@ const CreateProperty = () => {
       });
 
     reader(file).then((result: string) =>
-      setPropertyImage({ name: file?.name, url: result })
+      setProjectImage({ name: file?.name, url: result })
     );
   };
 
   const onFinishHandler = async (data: FieldValues) => {
-    if (!propertyImage.name) return alert("Please upload a property image");
+    if (!screenshot.name) return alert("Please upload a project image");
 
     await onFinish({
       ...data,
-      photo: propertyImage.url,
+      photo: screenshot.url,
       email: user.email,
     });
   };
 
   return (
     <Form
-      title="property"
+      title="project"
       type="Edit"
       register={register}
       onFinish={onFinish}
@@ -45,9 +45,9 @@ const CreateProperty = () => {
       handleSubmit={handleSubmit}
       handleImageChange={handleImageChange}
       onFinishHandler={onFinishHandler}
-      propertyImage={propertyImage}
+      screenshot={screenshot}
     />
   );
 };
 
-export default CreateProperty;
+export default UpdateProject;

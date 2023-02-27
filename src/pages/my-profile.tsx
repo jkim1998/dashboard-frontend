@@ -20,7 +20,7 @@ const MyProfile = () => {
             name={myProfile.name}
             email={myProfile.email}
             avatar={myProfile.avatar}
-            properties={myProfile.allProperties}
+            projects={myProfile.allProjects}
         />
     );
 };

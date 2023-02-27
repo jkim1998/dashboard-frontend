@@ -19,7 +19,7 @@ function checkImage(url: any) {
   return img.width !== 0 && img.height !== 0;
 }
 
-const PropertyDetails = () => {
+const ProjectDetails = () => {
   const navigate = useNavigate();
   const { data: user } = useGetIdentity();
   const { queryResult } = useShow();
@@ -28,7 +28,7 @@ const PropertyDetails = () => {
 
   const { data, isLoading, isError } = queryResult;
 
-  const propertyDetails = data?.data ?? {};
+  const projectDetails = data?.data ?? {};
   console.log(data);
 
   if (isLoading) {
@@ -39,19 +39,19 @@ const PropertyDetails = () => {
     return <div>Something went wrong!</div>;
   }
 
-  const isCurrentUser = user.email === propertyDetails.creator.email;
+  const isCurrentUser = user.email === projectDetails.lead.email;
 
-  const handleDeleteProperty = () => {
-    const response = confirm("Are you sure you want to delete this property?");
+  const handleDeleteProject = () => {
+    const response = confirm("Are you sure you want to delete this project?");
     if (response) {
       mutate(
         {
-          resource: "properties",
+          resource: "projects",
           id: id as string,
         },
         {
           onSuccess: () => {
-            navigate("/properties");
+            navigate("/projects");
           },
         }
       );
@@ -59,29 +59,58 @@ const PropertyDetails = () => {
   };
 
   return (
-    <Box
-      borderRadius="15px"
-      padding="20px"
-      bgcolor="#FCFCFC"
-      width="fit-content"
-    >
+    <Box borderRadius="15px" padding="20px" bgcolor="#FCFCFC" width="100%">
       <Typography fontSize={25} fontWeight={700} color="#11142D">
         Details
       </Typography>
 
+      <Stack width="100%" mt="25px" direction="row" flexWrap="wrap" gap={2}>
+        <CustomButton
+          title={!isCurrentUser ? "Message" : "Edit"}
+          backgroundColor="#475BE8"
+          color="#FCFCFC"
+          fullWidth
+          icon={!isCurrentUser ? <ChatBubble /> : <Edit />}
+          handleClick={() => {
+            if (isCurrentUser) {
+              navigate(`/projects/edit/${projectDetails._id}`);
+            }
+          }}
+        />
+        <CustomButton
+          title={!isCurrentUser ? "Call" : "Delete"}
+          backgroundColor={!isCurrentUser ? "#2ED480" : "#d42e2e"}
+          color="#FCFCFC"
+          fullWidth
+          icon={!isCurrentUser ? <Phone /> : <Delete />}
+          handleClick={() => {
+            if (isCurrentUser) handleDeleteProject();
+          }}
+        />
+      </Stack>
       <Box
         mt="20px"
         display="flex"
-        flexDirection={{ xs: "column", lg: "row" }}
+        // flexDirection={{ xs: "column", lg: "row" }}
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
         gap={4}
+        width="100%"
       >
-        <Box flex={1} maxWidth={764}>
+        <Box
+          flex={1}
+          flexDirection="row"
+          width="100%"
+          justifyContent="center"
+          alignItems="center"
+        >
           <img
-            src={propertyDetails.photo}
-            alt="property_details-img"
-            height={546}
+            src={projectDetails.photo}
+            alt="project_details-img"
+            width="100%"
             style={{ objectFit: "cover", borderRadius: "10px" }}
-            className="property_details-img"
+            className="project_details-img"
           />
 
           <Box mt="15px">
@@ -97,13 +126,8 @@ const PropertyDetails = () => {
                 color="#11142D"
                 textTransform="capitalize"
               >
-                {propertyDetails.propertyType}
+                {projectDetails.projectType}
               </Typography>
-              <Box>
-                {[1, 2, 3, 4, 5].map((item) => (
-                  <Star key={`star-${item}`} sx={{ color: "#F2C94C" }} />
-                ))}
-              </Box>
             </Stack>
 
             <Stack
@@ -120,12 +144,12 @@ const PropertyDetails = () => {
                   mt="10px"
                   color="#11142D"
                 >
-                  {propertyDetails.title}
+                  {projectDetails.title}
                 </Typography>
                 <Stack mt={0.5} direction="row" alignItems="center" gap={0.5}>
                   <Place sx={{ color: "#808191" }} />
                   <Typography fontSize={14} color="#808191">
-                    {propertyDetails.location}
+                    {projectDetails.location}
                   </Typography>
                 </Stack>
               </Box>
@@ -137,14 +161,11 @@ const PropertyDetails = () => {
                   mt="10px"
                   color="#11142D"
                 >
-                  Price
+                  1111111
                 </Typography>
                 <Stack direction="row" alignItems="flex-end" gap={1}>
                   <Typography fontSize={25} fontWeight={700} color="#475BE8">
-                    ${propertyDetails.price}
-                  </Typography>
-                  <Typography fontSize={14} color="#808191" mb={0.5}>
-                    for one day
+                    bbbbb
                   </Typography>
                 </Stack>
               </Box>
@@ -155,7 +176,7 @@ const PropertyDetails = () => {
                 Description
               </Typography>
               <Typography fontSize={14} color="#808191">
-                {propertyDetails.description}
+                {projectDetails.description}
               </Typography>
             </Stack>
           </Box>
@@ -168,116 +189,10 @@ const PropertyDetails = () => {
           display="flex"
           flexDirection="column"
           gap="20px"
-        >
-          <Stack
-            width="100%"
-            p={2}
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-            border="1px solid #E4E4E4"
-            borderRadius={2}
-          >
-            <Stack
-              mt={2}
-              justifyContent="center"
-              alignItems="center"
-              textAlign="center"
-            >
-              <img
-                src={
-                  checkImage(propertyDetails.creator.avatar)
-                    ? propertyDetails.creator.avatar
-                    : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
-                }
-                alt="avatar"
-                width={90}
-                height={90}
-                style={{
-                  borderRadius: "100%",
-                  objectFit: "cover",
-                }}
-              />
-
-              <Box mt="15px">
-                <Typography fontSize={18} fontWeight={600} color="#11142D">
-                  {propertyDetails.creator.name}
-                </Typography>
-                <Typography
-                  mt="5px"
-                  fontSize={14}
-                  fontWeight={400}
-                  color="#808191"
-                >
-                  Agent
-                </Typography>
-              </Box>
-
-              <Stack mt="15px" direction="row" alignItems="center" gap={1}>
-                <Place sx={{ color: "#808191" }} />
-                <Typography fontSize={14} fontWeight={400} color="#808191">
-                  North Carolina, USA
-                </Typography>
-              </Stack>
-
-              <Typography mt={1} fontSize={16} fontWeight={600} color="#11142D">
-                {propertyDetails.creator.allProperties.length} Properties
-              </Typography>
-            </Stack>
-
-            <Stack
-              width="100%"
-              mt="25px"
-              direction="row"
-              flexWrap="wrap"
-              gap={2}
-            >
-              <CustomButton
-                title={!isCurrentUser ? "Message" : "Edit"}
-                backgroundColor="#475BE8"
-                color="#FCFCFC"
-                fullWidth
-                icon={!isCurrentUser ? <ChatBubble /> : <Edit />}
-                handleClick={() => {
-                  if (isCurrentUser) {
-                    navigate(`/properties/edit/${propertyDetails._id}`);
-                  }
-                }}
-              />
-              <CustomButton
-                title={!isCurrentUser ? "Call" : "Delete"}
-                backgroundColor={!isCurrentUser ? "#2ED480" : "#d42e2e"}
-                color="#FCFCFC"
-                fullWidth
-                icon={!isCurrentUser ? <Phone /> : <Delete />}
-                handleClick={() => {
-                  if (isCurrentUser) handleDeleteProperty();
-                }}
-              />
-            </Stack>
-          </Stack>
-
-          <Stack>
-            <img
-              src="https://serpmedia.org/scigen/images/googlemaps-nyc-standard.png?crc=3787557525"
-              width="100%"
-              height={306}
-              style={{ borderRadius: 10, objectFit: "cover" }}
-            />
-          </Stack>
-
-          <Box>
-            <CustomButton
-              title="Book Now"
-              backgroundColor="#475BE8"
-              color="#FCFCFC"
-              fullWidth
-            />
-          </Box>
-        </Box>
+        ></Box>
       </Box>
     </Box>
   );
 };
 
-export default PropertyDetails;
+export default ProjectDetails;

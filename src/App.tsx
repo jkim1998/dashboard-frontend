@@ -27,16 +27,16 @@ import {
 } from "@mui/icons-material";
 
 import {
-  Login,
   Home,
-  Agents,
+  Login,
   MyProfile,
-  PropertyDetails,
-  AllProperties,
-  CreateProperty,
-  AgentProfile,
-  EditProperty,
-  Tickets,
+  ReadEmployees,
+  ReadEmployeeProfile,
+  CreateProject,
+  ReadProject,
+  ReadProjectDetails,
+  UpdateProject,
+  ReadTickets,
   CreateTicket,
 } from "./pages";
 
@@ -141,23 +141,23 @@ function App() {
           catchAll={<ErrorComponent />}
           resources={[
             {
-              name: "properties",
-              list: AllProperties,
-              show: PropertyDetails,
-              create: CreateProperty,
-              edit: EditProperty,
+              name: "projects",
+              create: UpdateProject,
+              list: ReadProject,
+              show: ReadProjectDetails,
+              edit:  UpdateProject,
               icon: <VillaOutlined />,
             },
             {
-              name: "agents",
-              list: Agents,
-              show: AgentProfile,
+              name: "employees",
+              list: ReadEmployees,
+              show: ReadEmployeeProfile,
               icon: <PeopleAltOutlined />,
             },
             {
               name: "tickets",
-              list: Tickets,
               create: CreateTicket,
+              list: ReadTickets,
               icon: <StarOutlineRounded />,
             },
             {

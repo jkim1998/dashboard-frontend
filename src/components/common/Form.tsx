@@ -22,7 +22,7 @@ const Form = ({
   handleImageChange,
   formLoading,
   onFinishHandler,
-  propertyImage,
+  screenshot,
 }: FormProps) => {
   return (
     <Box>
@@ -112,7 +112,7 @@ const Form = ({
                     required
                     inputProps={{ "aria-label": "Without label" }}
                     defaultValue="apartment"
-                    {...register("propertyType", {
+                    {...register("projectType", {
                       required: true,
                     })}
                   >
@@ -124,7 +124,7 @@ const Form = ({
               </Stack>
             </>
           )}
-          {title === "property" && (
+          {title === "project" && (
             <>
               <Stack direction="row" gap={4}>
                 <FormControl sx={{ flex: 1 }}>
@@ -136,7 +136,7 @@ const Form = ({
                       color: "#11142d",
                     }}
                   >
-                    Select {title} Type
+                    {title} Type
                   </FormHelperText>
                   <Select
                     variant="outlined"
@@ -145,43 +145,17 @@ const Form = ({
                     required
                     inputProps={{ "aria-label": "Without label" }}
                     defaultValue="apartment"
-                    {...register("propertyType", {
+                    {...register("projectType", {
                       required: true,
                     })}
                   >
-                    <MenuItem value="apartment">Apartment</MenuItem>
-                    <MenuItem value="villa">Villa</MenuItem>
-                    <MenuItem value="farmhouse">farmhouse</MenuItem>
-                    <MenuItem value="condos">Condos</MenuItem>
-                    <MenuItem value="townhouse">Townhouse</MenuItem>
-                    <MenuItem value="duplex">Duplex</MenuItem>
-                    <MenuItem value="studio">Studio</MenuItem>
-                    <MenuItem value="chalet">Chalet</MenuItem>
+                    <MenuItem value="frontend">Frond End</MenuItem>
+                    <MenuItem value="backend">Back End</MenuItem>
+                    <MenuItem value="fullstack">Full Stack</MenuItem>
+                    <MenuItem value="uiux">UI/UX</MenuItem>
                   </Select>
                 </FormControl>
-                <FormControl>
-                  <FormHelperText
-                    sx={{
-                      fontWeight: 500,
-                      margin: "10px 0",
-                      fontSize: 16,
-                      color: "#11142d",
-                    }}
-                  >
-                    Enter property price
-                  </FormHelperText>
-                  <TextField
-                    fullWidth
-                    required
-                    id="outlined-basic"
-                    color="info"
-                    type="number"
-                    variant="outlined"
-                    {...register("price", { required: true })}
-                  />
-                </FormControl>
               </Stack>
-
               <FormControl>
                 <FormHelperText
                   sx={{
@@ -191,7 +165,47 @@ const Form = ({
                     color: "#11142d",
                   }}
                 >
-                  Enter Location
+                  Tag
+                </FormHelperText>
+                <TextField
+                  fullWidth
+                  required
+                  id="outlined-basic"
+                  color="info"
+                  variant="outlined"
+                  {...register("location", { required: true })}
+                />
+              </FormControl>
+              <FormControl>
+                <FormHelperText
+                  sx={{
+                    fontWeight: 500,
+                    margin: "10px 0",
+                    fontSize: 16,
+                    color: "#11142d",
+                  }}
+                >
+                  Lead
+                </FormHelperText>
+                <TextField
+                  fullWidth
+                  required
+                  id="outlined-basic"
+                  color="info"
+                  variant="outlined"
+                  {...register("location", { required: true })}
+                />
+              </FormControl>
+              <FormControl>
+                <FormHelperText
+                  sx={{
+                    fontWeight: 500,
+                    margin: "10px 0",
+                    fontSize: 16,
+                    color: "#11142d",
+                  }}
+                >
+                  Members
                 </FormHelperText>
                 <TextField
                   fullWidth
@@ -213,7 +227,7 @@ const Form = ({
                 fontWeight={500}
                 my="10px"
               >
-                {title === "property" && "Property Photo"}
+                {title === "project" && "Project Photo"}
                 {title === "ticket" && "Screenshot"}
               </Typography>
 
@@ -243,7 +257,7 @@ const Form = ({
               color="#808191"
               sx={{ wordBreak: "break-all" }}
             >
-              {propertyImage?.name}
+              {screenshot?.name}
             </Typography>
           </Stack>
 

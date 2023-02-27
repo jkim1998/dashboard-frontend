@@ -47,7 +47,7 @@ const createTicket = () => {
         handleSubmit={handleSubmit}
         handleImageChange={handleImageChange}
         onFinishHandler={onFinishHandler}
-        propertyImage={propertyImage}
+        screenshot={propertyImage}
       />
     </>
   );

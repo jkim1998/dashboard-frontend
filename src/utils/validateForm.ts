@@ -1,43 +1,22 @@
 /* eslint-disable no-plusplus */
-import { FormValues } from 'interfaces/property';
+import { FormValues } from "interfaces/project";
 
 export const validateForm = (formValues: FormValues) => {
-  const errors: { message: string } = { message: '' };
+  const errors: { message: string } = { message: "" };
   let hasError = false;
 
   Object.keys(formValues).forEach((key) => {
     switch (key) {
-      case 'title':
+      case "title":
         if (!formValues.title) {
-          errors.message = 'Title is required';
+          errors.message = "Title is required";
           hasError = true;
         }
         break;
 
-      case 'description':
+      case "description":
         if (!formValues.description) {
-          errors.message = 'Description is required';
-          hasError = true;
-        }
-        break;
-
-      case 'propertyType':
-        if (!formValues.propertyType) {
-          errors.message = 'Property type is required';
-          hasError = true;
-        }
-        break;
-
-      case 'location':
-        if (!formValues.location) {
-          errors.message = 'Location is required';
-          hasError = true;
-        }
-        break;
-
-      case 'price':
-        if (!formValues.price) {
-          errors.message = 'Price is required';
+          errors.message = "Description is required";
           hasError = true;
         }
         break;
@@ -50,7 +29,10 @@ export const validateForm = (formValues: FormValues) => {
   return { hasError, errors };
 };
 
-export const hasChanged = (initialValues: FormValues, currentValues: FormValues) => {
+export const hasChanged = (
+  initialValues: FormValues,
+  currentValues: FormValues
+) => {
   const initialValuesArray = Object.values(initialValues);
   const currentValuesArray = Object.values(currentValues);
   for (let i = 0; i < initialValuesArray.length; i++) {

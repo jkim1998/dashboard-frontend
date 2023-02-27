@@ -1,6 +1,6 @@
 // common
 import Profile from "./common/Profile";
-import PropertyCard from "./common/PropertyCard";
+import ProjectCard from "./common/ProjectCard";
 import CustomButton from "./common/CustomButton";
 
 // charts
@@ -19,7 +19,7 @@ import TicketCard from "./tickets/TicketCard";
 
 export {
   Profile,
-  PropertyCard,
+  ProjectCard,
   CustomButton,
   PieChart,
   PropertyReferrals,
