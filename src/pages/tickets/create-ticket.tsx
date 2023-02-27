@@ -4,7 +4,8 @@ import { FieldValues, useForm } from "@pankod/refine-react-hook-form";
 
 import Form from "components/common/Form";
 
-const createTicket = () => {
+const CreateTicket = () => {
+  /* eslint-disable no-restricted-globals */
   const { data: user } = useGetIdentity();
   const [propertyImage, setPropertyImage] = useState({ name: "", url: "" });
   const {
@@ -53,4 +54,4 @@ const createTicket = () => {
   );
 };
 
-export default createTicket;
+export default CreateTicket;

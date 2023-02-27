@@ -13,7 +13,7 @@ import { useMemo } from "react";
 
 import { ProjectCard, CustomButton } from "components";
 
-const readProjects = () => {
+const ReadProjects = () => {
   const navigate = useNavigate();
 
   const {
@@ -213,4 +213,4 @@ const readProjects = () => {
   );
 };
 
-export default readProjects;
+export default ReadProjects;
