@@ -61,24 +61,22 @@ function App() {
       const profileObj = credential ? parseJwt(credential) : null;
 
       if (profileObj) {
-        var url = "";
-        {
-          !process.env.REACT_APP_TOGGLE_LOCAL
-            ? (url = "http://localhost:8080/api/v1/users")
-            : (url = "https://dashboard-server-aq1z.onrender.com/api/v1/users");
-        }
-        const response = await fetch(url, {
-          // const response = await fetch(
-          //   "https://dashboard-server-aq1z.onrender.com/api/v1/users",
-          //   {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: profileObj.name,
-            email: profileObj.email,
-            avatar: profileObj.picture,
-          }),
-        });
+        // const response = await fetch(
+        // const response = await fetch(
+        //   "http://localhost:8080/api/v1/users",
+        //   {
+        const response = await fetch(
+          "https://dashboard-server-aq1z.onrender.com/api/v1/users",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: profileObj.name,
+              email: profileObj.email,
+              avatar: profileObj.picture,
+            }),
+          }
+        );
 
         const data = await response.json();
 
@@ -140,7 +138,9 @@ function App() {
       <RefineSnackbarProvider>
         <Refine
           // dataProvider={dataProvider("http://localhost:8080/api/v1")}
-          dataProvider={dataProvider("https://dashboard-server-aq1z.onrender.com/api/v1")}
+          dataProvider={dataProvider(
+            "https://dashboard-server-aq1z.onrender.com/api/v1"
+          )}
           notificationProvider={notificationProvider}
           ReadyPage={ReadyPage}
           catchAll={<ErrorComponent />}
