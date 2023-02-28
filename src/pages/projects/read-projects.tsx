@@ -7,11 +7,15 @@ import {
   TextField,
   Select,
   MenuItem,
+  CircularProgress,
+  bgcolor,
 } from "@pankod/refine-mui";
 import { useNavigate } from "@pankod/refine-react-router-v6";
 import { useMemo } from "react";
 
 import { ProjectCard, CustomButton } from "components";
+
+import { Error, Loading } from "../index";
 
 const ReadProjects = () => {
   const navigate = useNavigate();
@@ -49,11 +53,11 @@ const ReadProjects = () => {
     };
   }, [filters]);
 
-  if (isLoading) return <Typography>Loading...</Typography>;
-  if (isError) return <Typography>Error...</Typography>;
+  if (isLoading) return <Loading />;
+  if (isError) return <Error />;
 
   return (
-    <Box>
+    <Box display="flex" flexDirection="column" height="100%" width="100%">
       <Box mt="20px" sx={{ display: "flex", flexWrap: "wrap", gap: 3 }}>
         <Stack direction="column" width="100%">
           <Typography fontSize={25} fontWeight={700} color="#11142d">
@@ -63,7 +67,8 @@ const ReadProjects = () => {
             mb={2}
             mt={3}
             display="flex"
-            width="84%"
+            flexDirection="row"
+            width="100%"
             justifyContent="space-between"
             flexWrap="wrap"
           >
@@ -74,8 +79,8 @@ const ReadProjects = () => {
               mb={{ xs: "20px", sm: 0 }}
             >
               <CustomButton
-                title={`Sort price ${currentPrice === "asc" ? "↑" : "↓"}`}
-                handleClick={() => toggleSort("price")}
+                title={`Sort  ${currentPrice === "asc" ? "↑" : "↓"}`}
+                handleClick={() => toggleSort("")}
                 backgroundColor="#475be8"
                 color="#fcfcfc"
               />
@@ -118,54 +123,67 @@ const ReadProjects = () => {
                 }}
               >
                 <MenuItem value="">All</MenuItem>
-                {[
-                  "Apartment",
-                  "Villa",
-                  "Farmhouse",
-                  "Condos",
-                  "Townhouse",
-                  "Duplex",
-                  "Studio",
-                  "Chalet",
-                ].map((type) => (
-                  <MenuItem key={type} value={type.toLowerCase()}>
-                    {type}
-                  </MenuItem>
-                ))}
+                {["Front End", "Back End", "Full Stack", "UI/UX"].map(
+                  (type) => (
+                    <MenuItem key={type} value={type.toLowerCase()}>
+                      {type}
+                    </MenuItem>
+                  )
+                )}
               </Select>
             </Box>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <CustomButton
+                title="Add Project"
+                handleClick={() => navigate("/projects/create")}
+                backgroundColor="#475be8"
+                color="#fcfcfc"
+                icon={<Add />}
+              />
+            </Stack>
           </Box>
         </Stack>
       </Box>
-
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <CustomButton
-          title="Add Project"
-          handleClick={() => navigate("/projects/create")}
-          backgroundColor="#475be8"
-          color="#fcfcfc"
-          icon={<Add />}
-        />
-      </Stack>
-
-      <Box mt="20px" sx={{ display: "flex", flexWrap: "wrap", gap: 3 }}>
-        {allProjects?.map((project) => (
-          <ProjectCard
-            key={project._id}
-            id={project._id}
-            title={project.title}
-            description={project.description}
-            projectType={project.projectType}
-            tag={project.tag}
-            photo={project.photo}
-            lead={project.lead}
-            members={project.members}
-          />
-        ))}
+      <Box display="flex" flexDirection="column" height="80%">
+        <Box
+          mt="20px"
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 3,
+          }}
+        >
+          {allProjects?.map((project) => (
+            <ProjectCard
+              key={project._id}
+              id={project._id}
+              title={project.title}
+              description={project.description}
+              projectType={project.projectType}
+              tag={project.tag}
+              photo={project.photo}
+              lead={project.lead}
+              members={project.members}
+            />
+          ))}
+        </Box>
       </Box>
 
       {allProjects.length > 0 && (
-        <Box display="flex" gap={2} mt={3} flexWrap="wrap">
+        <Box
+          display="flex"
+          flexDirection="row"
+          width="100%"
+          justifyContent="center"
+          alignItems="center"
+          gap={2}
+          mt={3}
+          flexWrap="wrap"
+        >
           <CustomButton
             title="Previous"
             handleClick={() => setCurrent((prev) => prev - 1)}

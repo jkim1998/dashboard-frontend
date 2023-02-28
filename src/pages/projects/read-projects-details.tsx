@@ -1,5 +1,6 @@
+import React, { useState } from "react";
 /* eslint-disable no-restricted-globals */
-import { Typography, Box, Stack } from "@pankod/refine-mui";
+import { Avatar, Typography, Box, Stack } from "@pankod/refine-mui";
 import { useDelete, useGetIdentity, useShow } from "@pankod/refine-core";
 import { useParams, useNavigate } from "@pankod/refine-react-router-v6";
 import {
@@ -9,9 +10,12 @@ import {
   Phone,
   Place,
   Star,
+  ArrowDropDown,
+  ArrowDropUp,
 } from "@mui/icons-material";
 
 import { CustomButton } from "components";
+import { Error, Loading } from "../index";
 
 function checkImage(url: any) {
   const img = new Image();
@@ -25,19 +29,15 @@ const ProjectDetails = () => {
   const { queryResult } = useShow();
   const { mutate } = useDelete();
   const { id } = useParams();
+  const [dropdown, setDropdown] = useState(false);
 
   const { data, isLoading, isError } = queryResult;
 
   const projectDetails = data?.data ?? {};
   console.log(data);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (isError) {
-    return <div>Something went wrong!</div>;
-  }
+  if (isLoading) return <Loading />;
+  if (isError) return <Error />;
 
   const isCurrentUser = user.email === projectDetails.lead.email;
 
@@ -58,36 +58,72 @@ const ProjectDetails = () => {
     }
   };
 
+  const toggleDropDown = () => {
+    setDropdown(!dropdown);
+  };
+
   return (
     <Box borderRadius="15px" padding="20px" bgcolor="#FCFCFC" width="100%">
-      <Typography fontSize={25} fontWeight={700} color="#11142D">
-        Details
-      </Typography>
-
-      <Stack width="100%" mt="25px" direction="row" flexWrap="wrap" gap={2}>
-        <CustomButton
-          title={!isCurrentUser ? "Message" : "Edit"}
-          backgroundColor="#475BE8"
-          color="#FCFCFC"
-          fullWidth
-          icon={!isCurrentUser ? <ChatBubble /> : <Edit />}
-          handleClick={() => {
-            if (isCurrentUser) {
-              navigate(`/projects/edit/${projectDetails._id}`);
-            }
-          }}
-        />
-        <CustomButton
-          title={!isCurrentUser ? "Call" : "Delete"}
-          backgroundColor={!isCurrentUser ? "#2ED480" : "#d42e2e"}
-          color="#FCFCFC"
-          fullWidth
-          icon={!isCurrentUser ? <Phone /> : <Delete />}
-          handleClick={() => {
-            if (isCurrentUser) handleDeleteProject();
-          }}
-        />
-      </Stack>
+      <Box>
+        <Typography
+          display="flex"
+          flexDirection="row"
+          justifyContent="space-between"
+          fontSize={25}
+          fontWeight={700}
+          color="#11142D"
+        >
+          <CustomButton
+            title={"<"}
+            backgroundColor={"blue"}
+            color="#FCFCFC"
+            handleClick={() => {
+              navigate("/projects");
+            }}
+          />
+          {projectDetails.title}
+          <CustomButton
+            title={""}
+            backgroundColor={"#d42e2e"}
+            color="#FCFCFC"
+            icon={dropdown ? <ArrowDropUp /> : <ArrowDropDown />}
+            handleClick={() => {
+              toggleDropDown();
+            }}
+          />
+        </Typography>
+        {dropdown && (
+          <Stack
+            mt="25px"
+            display="flex"
+            flexDirection="row"
+            justifyContent="flex-end"
+            flexWrap="wrap"
+            gap={2}
+          >
+            <CustomButton
+              title={!isCurrentUser ? "Message" : "Edit"}
+              backgroundColor="#475BE8"
+              color="#FCFCFC"
+              icon={!isCurrentUser ? <ChatBubble /> : <Edit />}
+              handleClick={() => {
+                if (isCurrentUser) {
+                  navigate(`/projects/edit/${projectDetails._id}`);
+                }
+              }}
+            />
+            <CustomButton
+              title={!isCurrentUser ? "Call" : "Delete"}
+              backgroundColor={!isCurrentUser ? "#2ED480" : "#d42e2e"}
+              color="#FCFCFC"
+              icon={!isCurrentUser ? <Phone /> : <Delete />}
+              handleClick={() => {
+                if (isCurrentUser) handleDeleteProject();
+              }}
+            />
+          </Stack>
+        )}
+      </Box>
       <Box
         mt="20px"
         display="flex"
@@ -126,7 +162,7 @@ const ProjectDetails = () => {
                 color="#11142D"
                 textTransform="capitalize"
               >
-                {projectDetails.projectType}
+                {projectDetails.title}
               </Typography>
             </Stack>
 
@@ -143,37 +179,46 @@ const ProjectDetails = () => {
                   fontWeight={600}
                   mt="10px"
                   color="#11142D"
+                  textTransform="capitalize"
                 >
-                  {projectDetails.title}
+                  {projectDetails.projectType}
                 </Typography>
-                <Stack mt={0.5} direction="row" alignItems="center" gap={0.5}>
-                  <Place sx={{ color: "#808191" }} />
-                  <Typography fontSize={14} color="#808191">
-                    {projectDetails.location}
-                  </Typography>
-                </Stack>
               </Box>
 
-              <Box>
-                <Typography
-                  fontSize={16}
-                  fontWeight={600}
-                  mt="10px"
-                  color="#11142D"
+              <Box display="flex" flexDirection="column">
+                <Stack
+                  display="flex"
+                  flexDirection="row"
+                  justifyContent="center"
+                  alignItems="center"
+                  gap={1}
                 >
-                  1111111
-                </Typography>
-                <Stack direction="row" alignItems="flex-end" gap={1}>
+                  <Avatar src={projectDetails.lead.avatar} />
                   <Typography fontSize={25} fontWeight={700} color="#475BE8">
-                    bbbbb
+                    {projectDetails.lead.name}
                   </Typography>
+                </Stack>
+                <Stack mt={0.5} direction="row" alignItems="center" gap={0.5}>
+                  {projectDetails.members.map((n: any) => (
+                    <Typography fontSize={14} color="#808191">
+                      {n}
+                    </Typography>
+                  ))}
                 </Stack>
               </Box>
             </Stack>
 
             <Stack mt="25px" direction="column" gap="10px">
+              {projectDetails.github && (
+                <Typography>github: {projectDetails.github}</Typography>
+              )}
+              {projectDetails.preview && (
+                <Typography>preview: {projectDetails.preview}</Typography>
+              )}
+            </Stack>
+            <Stack mt="25px" direction="column" gap="10px">
               <Typography fontSize={18} color="#11142D">
-                Description
+                Description:
               </Typography>
               <Typography fontSize={14} color="#808191">
                 {projectDetails.description}

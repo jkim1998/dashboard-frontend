@@ -30,14 +30,14 @@ const AgentCard = ({
     name,
     email,
     avatar,
-    noOfProperties,
+    numProject,
 }: AgentCardProp) => {
     const { data: currentUser } = useGetIdentity();
 
     const generateLink = () => {
         if (currentUser.email === email) return "/my-profile";
 
-        return `/employees/show/${id}`;
+        return `/users/show/${id}`;
     };
 
     return (
@@ -82,7 +82,7 @@ const AgentCard = ({
                         {name}
                     </Typography>
                     <Typography fontSize={14} color="#808191">
-                        Real-Estate Agent
+                        Developer
                     </Typography>
                 </Stack>
                 <Stack
@@ -106,7 +106,7 @@ const AgentCard = ({
                     />
                     <InfoBar
                         icon={<LocationCity sx={{ color: "#808191" }} />}
-                        name={`${noOfProperties} Properties`}
+                        name={`${numProject} Projects`}
                     />
                 </Stack>
             </Stack>

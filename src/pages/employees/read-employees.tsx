@@ -1,21 +1,24 @@
 import { useList } from "@pankod/refine-core";
 import { Box, Typography } from "@pankod/refine-mui";
+import { useNavigate } from "@pankod/refine-react-router-v6";
 
 import { AgentCard, CustomButton } from "components";
+import { Error, Loading } from "../index";
 
 const Agents = () => {
+  const navigate = useNavigate();
   const { data, isLoading, isError } = useList({ resource: "users" });
 
   const allEmployees = data?.data ?? [];
 
-  if (isLoading) return <div>loading...</div>;
-  if (isError) return <div>error...</div>;
+  if (isLoading) return <Loading />;
+  if (isError) return <Error />;
 
   return (
     <>
       <Box>
         <Typography fontSize={25} fontWeight={700} color="#11142d">
-          Agents List
+          Employee List
         </Typography>
 
         <Box
@@ -34,12 +37,13 @@ const Agents = () => {
               name={employee.name}
               email={employee.email}
               avatar={employee.avatar}
-              noOfProperties={employee.allProperties.length}
+              numProject={employee.allProjects.length}
             />
           ))}
         </Box>
         <CustomButton
           title="Create User"
+          handleClick={() => navigate("/users/create")}
           backgroundColor="#475BE8"
           color="#FCFCFC"
         />

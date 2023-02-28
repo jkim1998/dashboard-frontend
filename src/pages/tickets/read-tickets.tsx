@@ -19,6 +19,7 @@ import { useNavigate } from "@pankod/refine-react-router-v6";
 import { useMemo } from "react";
 
 import { ProjectCard, CustomButton, TicketCard } from "components";
+import { Error, Loading } from "../index";
 
 const ReadTickets = () => {
   const navigate = useNavigate();
@@ -26,9 +27,8 @@ const ReadTickets = () => {
 
   const ticketData = data?.data ?? [];
 
-  console.log("data:", ticketData);
-  if (isLoading) return <div>loading...</div>;
-  if (isError) return <div>error...</div>;
+  if (isLoading) return <Loading />;
+  if (isError) return <Error />;
   return (
     <>
       <Box>

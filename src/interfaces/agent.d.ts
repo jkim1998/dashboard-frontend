@@ -5,7 +5,7 @@ export interface AgentCardProp {
   name: string;
   email: string;
   avatar: string;
-  noOfProperties: number;
+  numProject: number;
 }
 
 export interface TicketCardProp {

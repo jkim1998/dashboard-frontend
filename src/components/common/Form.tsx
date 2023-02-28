@@ -11,6 +11,7 @@ import {
   Button,
 } from "@pankod/refine-mui";
 
+import { useNavigate } from "@pankod/refine-react-router-v6";
 import { FormProps } from "interfaces/common";
 import CustomButton from "./CustomButton";
 
@@ -24,9 +25,16 @@ const Form = ({
   onFinishHandler,
   screenshot,
 }: FormProps) => {
+  const navigate = useNavigate();
   return (
     <Box>
       <Typography fontSize={25} fontWeight={700} color="#11142d">
+        <CustomButton
+          title="<"
+          handleClick={() => navigate(`/${title}s`)}
+          backgroundColor="#475be8"
+          color="#fcfcfc"
+        />
         {type} a {title}
       </Typography>
 
@@ -41,56 +49,116 @@ const Form = ({
           }}
           onSubmit={handleSubmit(onFinishHandler)}
         >
-          <FormControl>
-            <FormHelperText
-              sx={{
-                fontWeight: 500,
-                margin: "10px 0",
-                fontSize: 16,
-                color: "#11142d",
-                textTransform: "capitalize",
-              }}
+          {title !== "user" && (
+            <FormControl>
+              <FormHelperText
+                sx={{
+                  fontWeight: 500,
+                  margin: "10px 0",
+                  fontSize: 16,
+                  color: "#11142d",
+                  textTransform: "capitalize",
+                }}
+              >
+                title
+              </FormHelperText>
+              <TextField
+                fullWidth
+                required
+                id="outlined-basic"
+                color="info"
+                variant="outlined"
+                {...register("title", { required: true })}
+              />
+            </FormControl>
+          )}
+          {title === "project" && (
+            <Box
+              display="flex"
+              flexDirection="row"
+              justifyContent="space-between"
+              gap="100px"
             >
-              title
-            </FormHelperText>
-            <TextField
-              fullWidth
-              required
-              id="outlined-basic"
-              color="info"
-              variant="outlined"
-              {...register("title", { required: true })}
-            />
-          </FormControl>
-          <FormControl>
-            <FormHelperText
-              sx={{
-                fontWeight: 500,
-                margin: "10px 0",
-                fontSize: 16,
-                color: "#11142d",
-                textTransform: "capitalize",
-              }}
-            >
-              description
-            </FormHelperText>
-            <TextareaAutosize
-              minRows={5}
-              required
-              placeholder="Write description"
-              color="info"
-              style={{
-                width: "100%",
-                background: "transparent",
-                fontSize: "16px",
-                borderColor: "rgba(0,0,0,0.23)",
-                borderRadius: 6,
-                padding: 10,
-                color: "#919191",
-              }}
-              {...register("description", { required: true })}
-            />
-          </FormControl>
+              <Box width="50%">
+                {/* <FormControl> */}
+                <FormHelperText
+                  sx={{
+                    width: "100%",
+                    fontWeight: 500,
+                    margin: "10px 0",
+                    fontSize: 16,
+                    color: "#11142d",
+                    textTransform: "capitalize",
+                  }}
+                >
+                  github link
+                </FormHelperText>
+                <TextField
+                  fullWidth
+                  required
+                  id="outlined-basic"
+                  color="info"
+                  variant="outlined"
+                  {...register("location", { required: true })}
+                />
+                {/* </FormControl> */}
+              </Box>
+              <Box width="50%">
+                {/* <FormControl> */}
+                <FormHelperText
+                  sx={{
+                    fontWeight: 500,
+                    margin: "10px 0",
+                    fontSize: 16,
+                    color: "#11142d",
+                    textTransform: "capitalize",
+                  }}
+                >
+                  preview link
+                </FormHelperText>
+                <TextField
+                  fullWidth
+                  required
+                  id="outlined-basic"
+                  color="info"
+                  variant="outlined"
+                  {...register("location", { required: true })}
+                />
+                {/* </FormControl> */}
+              </Box>
+            </Box>
+          )}
+          {title !== "user" && (
+            <FormControl>
+              <FormHelperText
+                sx={{
+                  fontWeight: 500,
+                  margin: "10px 0",
+                  fontSize: 16,
+                  color: "#11142d",
+                  textTransform: "capitalize",
+                }}
+              >
+                description
+              </FormHelperText>
+              <TextareaAutosize
+                minRows={5}
+                required
+                placeholder="Write description"
+                color="info"
+                style={{
+                  width: "100%",
+                  background: "transparent",
+                  fontSize: "16px",
+                  borderColor: "rgba(0,0,0,0.23)",
+                  borderRadius: 6,
+                  padding: 10,
+                  color: "#919191",
+                }}
+                {...register("description", { required: true })}
+              />
+            </FormControl>
+          )}
           {title === "ticket" && (
             <>
               <Stack direction="row" gap={4}>
@@ -134,9 +202,10 @@ const Form = ({
                       margin: "10px 0",
                       fontSize: 16,
                       color: "#11142d",
+                      textTransform: "capitalize",
                     }}
                   >
-                    {title} Type
+                    {title} type
                   </FormHelperText>
                   <Select
                     variant="outlined"
@@ -163,9 +232,10 @@ const Form = ({
                     margin: "10px 0",
                     fontSize: 16,
                     color: "#11142d",
+                    textTransform: "capitalize",
                   }}
                 >
-                  Tag
+                  lead
                 </FormHelperText>
                 <TextField
                   fullWidth
@@ -183,9 +253,10 @@ const Form = ({
                     margin: "10px 0",
                     fontSize: 16,
                     color: "#11142d",
+                    textTransform: "capitalize",
                   }}
                 >
-                  Lead
+                  members
                 </FormHelperText>
                 <TextField
                   fullWidth
@@ -203,9 +274,10 @@ const Form = ({
                     margin: "10px 0",
                     fontSize: 16,
                     color: "#11142d",
+                    textTransform: "capitalize",
                   }}
                 >
-                  Members
+                  tag
                 </FormHelperText>
                 <TextField
                   fullWidth
@@ -229,16 +301,22 @@ const Form = ({
               >
                 {title === "project" && "Project Photo"}
                 {title === "ticket" && "Screenshot"}
+                {title === "user" && "Avatar"}
               </Typography>
 
               <Button
                 component="label"
                 sx={{
                   width: "fit-content",
-                  color: "#2ed480",
+                  color: "white",
                   textTransform: "capitalize",
                   fontSize: 16,
-                  border: "1px solid black",
+                  background: "#2ed480",
+                  "&:hover": {
+                    boxShadow: "0 22px 45px 2px rgba(176, 176, 176, 0.1)",
+                    background: "#dadefa",
+                    transition: "all 0.4s ease-in-out",
+                  },
                 }}
               >
                 Upload *
@@ -260,6 +338,97 @@ const Form = ({
               {screenshot?.name}
             </Typography>
           </Stack>
+
+          {/* user  */}
+          {title === "user" && (
+            <>
+              <FormControl>
+                <FormHelperText
+                  sx={{
+                    fontWeight: 500,
+                    margin: "10px 0",
+                    fontSize: 16,
+                    color: "#11142d",
+                    textTransform: "capitalize",
+                  }}
+                >
+                  Name
+                </FormHelperText>
+                <TextField
+                  fullWidth
+                  required
+                  id="outlined-basic"
+                  color="info"
+                  variant="outlined"
+                  {...register("name", { required: true })}
+                />
+              </FormControl>
+              <Stack>
+                <FormControl>
+                  <FormHelperText
+                    sx={{
+                      fontWeight: 500,
+                      margin: "10px 0",
+                      fontSize: 16,
+                      color: "#11142d",
+                      textTransform: "capitalize",
+                    }}
+                  >
+                    Email
+                  </FormHelperText>
+                  <TextField
+                    fullWidth
+                    required
+                    id="outlined-basic"
+                    color="info"
+                    variant="outlined"
+                    {...register("email", { required: true })}
+                  />
+                </FormControl>
+
+                <FormControl>
+                  <FormHelperText
+                    sx={{
+                      fontWeight: 500,
+                      margin: "10px 0",
+                      fontSize: 16,
+                      color: "#11142d",
+                      textTransform: "capitalize",
+                    }}
+                  >
+                    Phone
+                  </FormHelperText>
+                  <TextField
+                    fullWidth
+                    id="outlined-basic"
+                    color="info"
+                    variant="outlined"
+                    {...register("phone", { required: false })}
+                  />
+                </FormControl>
+              </Stack>
+              <FormControl>
+                <FormHelperText
+                  sx={{
+                    fontWeight: 500,
+                    margin: "10px 0",
+                    fontSize: 16,
+                    color: "#11142d",
+                    textTransform: "capitalize",
+                  }}
+                >
+                  Location
+                </FormHelperText>
+                <TextField
+                  fullWidth
+                  id="outlined-basic"
+                  color="info"
+                  variant="outlined"
+                  {...register("location", { required: false })}
+                />
+              </FormControl>
+            </>
+          )}
 
           <CustomButton
             type="submit"
