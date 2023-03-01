@@ -33,7 +33,13 @@ const InfoBar = ({ icon, name }: InfoBarProps) => (
   </Stack>
 );
 
-const AgentCard = ({ id, title, description, creator }: TicketCardProp) => {
+const TicketCard = ({
+  id,
+  title,
+  description,
+  creator,
+  priority,
+}: TicketCardProp) => {
   const { data: currentUser } = useGetIdentity();
 
   const generateLink = () => {
@@ -44,12 +50,14 @@ const AgentCard = ({ id, title, description, creator }: TicketCardProp) => {
 
   return (
     <TableBody>
+      <TableCell align="right">{priority}</TableCell>
       <TableCell align="right">{title}</TableCell>
       <TableCell align="right">{description}</TableCell>
       <TableCell align="right">{creator}</TableCell>
       <TableCell align="right">{id}</TableCell>
+      {/* <TableCell align="right">{project}</TableCell> */}
     </TableBody>
   );
 };
 
-export default AgentCard;
+export default TicketCard;

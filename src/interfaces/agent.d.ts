@@ -13,6 +13,8 @@ export interface TicketCardProp {
   title: string;
   description: string;
   creator: string;
+  priority: string;
+  // project: string;
 }
 
 export interface InfoBarProps {

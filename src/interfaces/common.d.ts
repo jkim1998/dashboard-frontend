@@ -20,6 +20,8 @@ export interface ProfileProps {
 export interface ProjectProps {
   _id: string;
   title: string;
+  github: string;
+  preview: string;
   description: string;
   projectType: string;
   members: string;
@@ -39,5 +41,5 @@ export interface FormProps {
   handleSubmit: FormEventHandler<HTMLFormElement> | undefined;
   handleImageChange: (file) => void;
   onFinishHandler: (data: FieldValues) => Promise<void> | void;
-  screenshot: { name: string; url: string };
+  photoUrl: { name: string; url: string };
 }

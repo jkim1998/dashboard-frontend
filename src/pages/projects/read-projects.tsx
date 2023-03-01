@@ -34,10 +34,10 @@ const ReadProjects = () => {
 
   const allProjects = data?.data ?? [];
 
-  const currentPrice = sorter.find((item) => item.field === "price")?.order;
+  const numTicket = sorter.find((item) => item.field === "numticket")?.order;
 
   const toggleSort = (field: string) => {
-    setSorter([{ field, order: currentPrice === "asc" ? "desc" : "asc" }]);
+    setSorter([{ field, order: numTicket === "asc" ? "desc" : "asc" }]);
   };
 
   const currentFilterValues = useMemo(() => {
@@ -79,7 +79,7 @@ const ReadProjects = () => {
               mb={{ xs: "20px", sm: 0 }}
             >
               <CustomButton
-                title={`Sort  ${currentPrice === "asc" ? "↑" : "↓"}`}
+                title={`Sort  ${numTicket === "asc" ? "↑" : "↓"}`}
                 handleClick={() => toggleSort("")}
                 backgroundColor="#475be8"
                 color="#fcfcfc"
@@ -125,7 +125,14 @@ const ReadProjects = () => {
                 <MenuItem value="">All</MenuItem>
                 {["Front End", "Back End", "Full Stack", "UI/UX"].map(
                   (type) => (
-                    <MenuItem key={type} value={type.toLowerCase()}>
+                    <MenuItem
+                      key={type}
+                      value={type
+                        .trim()
+                        .replace("/", "")
+                        .replace(/\s+/g, "")
+                        .toLowerCase()}
+                    >
                       {type}
                     </MenuItem>
                   )
@@ -162,6 +169,8 @@ const ReadProjects = () => {
               key={project._id}
               id={project._id}
               title={project.title}
+              github={project.github}
+              preview={project.preview}
               description={project.description}
               projectType={project.projectType}
               tag={project.tag}

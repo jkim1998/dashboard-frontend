@@ -151,6 +151,8 @@ const Profile = ({ type, name, avatar, email, projects }: ProfileProps) => (
               key={project._id}
               id={project._id}
               title={project.title}
+              github={project.github}
+              preview={project.preview}
               description={project.description}
               projectType={project.projectType}
               members={project.members}

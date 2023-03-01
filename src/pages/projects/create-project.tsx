@@ -6,7 +6,10 @@ import Form from "components/common/Form";
 
 const CreateProject = () => {
   const { data: user } = useGetIdentity();
-  const [screenshot, setScreenshot] = useState({ name: "", url: "" });
+  const [screenshot, setScreenshot] = useState({
+    name: "",
+    url: "https://kissflow.com/hubfs/visual-project-management.jpg",
+  });
   const {
     refineCore: { onFinish, formLoading },
     register,
@@ -27,7 +30,9 @@ const CreateProject = () => {
   };
 
   const onFinishHandler = async (data: FieldValues) => {
-    if (!screenshot.name) return alert("Please select an image");
+    if (!screenshot.name) {
+      // return alert("Please select an image");
+    }
 
     await onFinish({
       ...data,
@@ -46,7 +51,7 @@ const CreateProject = () => {
       handleSubmit={handleSubmit}
       handleImageChange={handleImageChange}
       onFinishHandler={onFinishHandler}
-      screenshot={screenshot}
+      photoUrl={screenshot}
     />
   );
 };

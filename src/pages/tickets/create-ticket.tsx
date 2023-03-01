@@ -7,7 +7,7 @@ import Form from "components/common/Form";
 const CreateTicket = () => {
   /* eslint-disable no-restricted-globals */
   const { data: user } = useGetIdentity();
-  const [propertyImage, setPropertyImage] = useState({ name: "", url: "" });
+  const [screenshot, setPropertyImage] = useState({ name: "", url: "" });
   const {
     refineCore: { onFinish, formLoading },
     register,
@@ -28,11 +28,11 @@ const CreateTicket = () => {
   };
 
   const onFinishHandler = async (data: FieldValues) => {
-    // if (!propertyImage.name) return alert("Please select an image");
+    // if (!screenshot.name) return alert("Please select an image");
 
     await onFinish({
       ...data,
-      photo: propertyImage.url,
+      photo: screenshot.url,
       email: user.email,
     });
   };
@@ -48,7 +48,7 @@ const CreateTicket = () => {
         handleSubmit={handleSubmit}
         handleImageChange={handleImageChange}
         onFinishHandler={onFinishHandler}
-        screenshot={propertyImage}
+        photoUrl={screenshot}
       />
     </>
   );

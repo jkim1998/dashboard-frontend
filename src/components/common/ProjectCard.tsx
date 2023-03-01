@@ -15,6 +15,8 @@ const ProjectCard = ({
   id,
   title,
   description,
+  github,
+  preview,
   tag,
   projectType,
   members,

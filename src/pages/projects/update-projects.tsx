@@ -6,6 +6,18 @@ import Form from "components/common/Form";
 const UpdateProject = () => {
   const { data: user } = useGetIdentity();
   const [screenshot, setProjectImage] = useState({ name: "", url: "" });
+
+  // const getURL = async () => {
+  //   let url = "http://localhost:8080/api/v1/projects";
+  //   const requestOptions = {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({ title: "React POST Request Example" }),
+  //   };
+  //   fetch(url, requestOptions)
+  //     .then((response) => response.json())
+  //     .then((data) => this.setProjectImage({ url: data.photo }));
+  // };
   const {
     refineCore: { onFinish, formLoading },
     register,
@@ -26,7 +38,7 @@ const UpdateProject = () => {
   };
 
   const onFinishHandler = async (data: FieldValues) => {
-    if (!screenshot.name) return alert("Please upload a project image");
+    // if (!screenshot.name) return alert("Please upload a project image");
 
     await onFinish({
       ...data,
@@ -45,7 +57,7 @@ const UpdateProject = () => {
       handleSubmit={handleSubmit}
       handleImageChange={handleImageChange}
       onFinishHandler={onFinishHandler}
-      screenshot={screenshot}
+      photoUrl={screenshot}
     />
   );
 };

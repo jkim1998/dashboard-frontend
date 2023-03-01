@@ -16,6 +16,8 @@ export interface FormValues {
 export interface ProjectCardProps {
   id?: BaseKey | undefined;
   title: string;
+  github: string;
+  preview: string;
   description: string;
   projectType: string;
   tag: string;

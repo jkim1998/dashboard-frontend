@@ -23,7 +23,7 @@ const Form = ({
   handleImageChange,
   formLoading,
   onFinishHandler,
-  screenshot,
+  photoUrl,
 }: FormProps) => {
   const navigate = useNavigate();
   return (
@@ -95,11 +95,10 @@ const Form = ({
                 </FormHelperText>
                 <TextField
                   fullWidth
-                  required
                   id="outlined-basic"
                   color="info"
                   variant="outlined"
-                  {...register("location", { required: true })}
+                  {...register("github", { required: false })}
                 />
                 {/* </FormControl> */}
               </Box>
@@ -118,11 +117,10 @@ const Form = ({
                 </FormHelperText>
                 <TextField
                   fullWidth
-                  required
                   id="outlined-basic"
                   color="info"
                   variant="outlined"
-                  {...register("location", { required: true })}
+                  {...register("preview", { required: false })}
                 />
                 {/* </FormControl> */}
               </Box>
@@ -179,8 +177,8 @@ const Form = ({
                     displayEmpty
                     required
                     inputProps={{ "aria-label": "Without label" }}
-                    defaultValue="apartment"
-                    {...register("projectType", {
+                    defaultValue="low"
+                    {...register("priority", {
                       required: true,
                     })}
                   >
@@ -213,19 +211,20 @@ const Form = ({
                     displayEmpty
                     required
                     inputProps={{ "aria-label": "Without label" }}
-                    defaultValue="apartment"
+                    defaultValue="frontend"
                     {...register("projectType", {
                       required: true,
                     })}
                   >
-                    <MenuItem value="frontend">Frond End</MenuItem>
+                    <MenuItem value="frontend">Front End</MenuItem>
                     <MenuItem value="backend">Back End</MenuItem>
                     <MenuItem value="fullstack">Full Stack</MenuItem>
                     <MenuItem value="uiux">UI/UX</MenuItem>
+                    <MenuItem value="etc">Others</MenuItem>
                   </Select>
                 </FormControl>
               </Stack>
-              <FormControl>
+              {/* <FormControl>
                 <FormHelperText
                   sx={{
                     fontWeight: 500,
@@ -235,17 +234,22 @@ const Form = ({
                     textTransform: "capitalize",
                   }}
                 >
-                  lead
+                  project owner
                 </FormHelperText>
-                <TextField
-                  fullWidth
-                  required
-                  id="outlined-basic"
-                  color="info"
+                <Select
                   variant="outlined"
-                  {...register("location", { required: true })}
-                />
-              </FormControl>
+                  color="info"
+                  displayEmpty
+                  required
+                  inputProps={{ "aria-label": "Without label" }}
+                  defaultValue=""
+                  {...register("lead", {
+                    required: true,
+                  })}
+                > 
+                  <MenuItem value="63f9232a4aecb8b197fe2435">Jonathan Kim</MenuItem>
+                </Select>
+              </FormControl> */}
               <FormControl>
                 <FormHelperText
                   sx={{
@@ -260,11 +264,10 @@ const Form = ({
                 </FormHelperText>
                 <TextField
                   fullWidth
-                  required
                   id="outlined-basic"
                   color="info"
                   variant="outlined"
-                  {...register("location", { required: true })}
+                  {...register("members", { required: false })}
                 />
               </FormControl>
               <FormControl>
@@ -281,11 +284,10 @@ const Form = ({
                 </FormHelperText>
                 <TextField
                   fullWidth
-                  required
                   id="outlined-basic"
                   color="info"
                   variant="outlined"
-                  {...register("location", { required: true })}
+                  {...register("tag", { required: false })}
                 />
               </FormControl>
             </>
@@ -335,7 +337,7 @@ const Form = ({
               color="#808191"
               sx={{ wordBreak: "break-all" }}
             >
-              {screenshot?.name}
+              name: {photoUrl.name}
             </Typography>
           </Stack>
 

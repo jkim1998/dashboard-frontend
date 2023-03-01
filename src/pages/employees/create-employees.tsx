@@ -6,7 +6,7 @@ import Form from "components/common/Form";
 
 const CreateEmployees = () => {
   const { data: user } = useGetIdentity();
-  const [screenshot, setScreenshot] = useState({ name: "", url: "" });
+  const [avatar, setAvatar] = useState({ name: "", url: "" });
   const {
     refineCore: { onFinish, formLoading },
     register,
@@ -22,16 +22,16 @@ const CreateEmployees = () => {
       });
 
     reader(file).then((result: string) =>
-      setScreenshot({ name: file?.name, url: result })
+      setAvatar({ name: file?.name, url: result })
     );
   };
 
   const onFinishHandler = async (data: FieldValues) => {
-    if (!screenshot.name) return alert("Please select an image");
+    if (!avatar.name) return alert("Please select an image");
 
     await onFinish({
       ...data,
-      photo: screenshot.url,
+      photo: avatar.url,
       email: user.email,
     });
   };
@@ -46,7 +46,7 @@ const CreateEmployees = () => {
       handleSubmit={handleSubmit}
       handleImageChange={handleImageChange}
       onFinishHandler={onFinishHandler}
-      screenshot={screenshot}
+      photoUrl={avatar}
     />
   );
 };
