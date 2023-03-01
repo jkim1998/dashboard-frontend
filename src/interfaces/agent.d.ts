@@ -15,6 +15,7 @@ export interface TicketCardProp {
   creator: string;
   priority: string;
   // project: string;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 export interface InfoBarProps {

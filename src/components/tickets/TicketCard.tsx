@@ -17,7 +17,9 @@ import {
 import { Link } from "@pankod/refine-react-router-v6";
 
 import { TicketCardProp, InfoBarProps } from "interfaces/agent";
-
+interface ChildProps {
+  onData: (data: string) => void;
+}
 function checkImage(url: any) {
   const img = new Image();
   img.src = url;
@@ -39,6 +41,7 @@ const TicketCard = ({
   description,
   creator,
   priority,
+  onClick,
 }: TicketCardProp) => {
   const { data: currentUser } = useGetIdentity();
 
@@ -47,9 +50,8 @@ const TicketCard = ({
 
     return `/tickets/show/${id}`;
   };
-
   return (
-    <TableBody>
+    <TableBody onClick={onClick}>
       <TableCell align="right">{priority}</TableCell>
       <TableCell align="right">{title}</TableCell>
       <TableCell align="right">{description}</TableCell>
