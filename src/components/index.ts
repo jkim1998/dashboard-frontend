@@ -2,6 +2,7 @@
 import Profile from "./common/Profile";
 import ProjectCard from "./common/ProjectCard";
 import CustomButton from "./common/CustomButton";
+import Banner from "./common/Banner";
 
 // charts
 import PieChart from "./charts/PieChart";
@@ -27,4 +28,5 @@ export {
   AgentCard,
   TopAgent,
   TicketCard,
+  Banner,
 };

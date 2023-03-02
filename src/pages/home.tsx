@@ -1,12 +1,14 @@
 import { useList } from "@pankod/refine-core";
 import { Typography, Box, Stack } from "@pankod/refine-mui";
-
+import { Error, Loading } from "./index";
 import {
   PieChart,
   PropertyReferrals,
   TotalRevenue,
   ProjectCard,
 } from "components";
+
+import { Projects, Users, Tickets } from "../components/query";
 
 const Home = () => {
   const { data, isLoading, isError } = useList({
@@ -17,11 +19,10 @@ const Home = () => {
       },
     },
   });
-
   const projectData = data?.data ?? [];
 
-  if (isLoading) return <Typography>Loading...</Typography>;
-  if (isError) return <Typography>Something went wrong!</Typography>;
+  if (isLoading) return <Loading />;
+  if (isError) return <Error />;
 
   return (
     <Box>
@@ -34,61 +35,68 @@ const Home = () => {
           id="chart"
           flex={1}
           display="flex"
-          bgcolor="#fcfcfc"
+          bgcolor="#6699ff"
+          color="#ffffff"
           flexDirection="column"
           justifyContent="center"
           alignItems="center"
           py={2}
           gap={2}
-          borderRadius="0px"
+          borderRadius="10px"
           minHeight="110px"
         >
-          <Typography>16</Typography>
+          <Projects />
           <Typography>Active Projects</Typography>
         </Box>
         <Box
           id="chart"
           flex={1}
           display="flex"
-          bgcolor="#fcfcfc"
+          bgcolor="#ffcc00"
+          color="#ffffff"
           flexDirection="column"
           justifyContent="center"
           alignItems="center"
           py={2}
           gap={2}
+          borderRadius="10px"
           minHeight="110px"
         >
-          <Typography>99</Typography>
-          <Typography>Total Tickets</Typography>
-        </Box>
-        <Box
-          id="chart"
-          flex={1}
-          display="flex"
-          bgcolor="#fcfcfc"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-          py={2}
-          gap={2}
-          minHeight="110px"
-        >
-          <Typography>14</Typography>
+          <Tickets />
           <Typography>Unassigned Tickets</Typography>
         </Box>
         <Box
           id="chart"
           flex={1}
           display="flex"
-          bgcolor="#fcfcfc"
+          bgcolor="#66ff66"
+          color="#ffffff"
           flexDirection="column"
           justifyContent="center"
           alignItems="center"
           py={2}
           gap={2}
+          borderRadius="10px"
           minHeight="110px"
         >
-          <Typography>34563</Typography>
+          <Tickets />
+          <Typography>Completed Tickets</Typography>
+        </Box>
+        <Box
+          id="chart"
+          flex={1}
+          display="flex"
+          bgcolor="#ff6600"
+          color="#ffffff"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+          py={2}
+          gap={2}
+          borderRadius="10px"
+          minHeight="110px"
+        >
+          <Typography fontWeight={700}>34563</Typography>
           <Typography>Analytics</Typography>
         </Box>
       </Box>
@@ -105,21 +113,21 @@ const Home = () => {
       <Box mt="20px" display="flex" flexWrap="wrap" gap={3}>
         <PieChart
           title="Ticket Completion"
-          value={684}
-          series={[75, 25]}
-          colors={["#275be8", "#c4e8ef"]}
+          series={[65, 25, 10]}
+          colors={["#009933", "#ff0066", "#e7e713"]}
+          labels={["completed", "in progress", "new"]}
         />
         <PieChart
-          title="Ticket Assignment"
-          value={550}
-          series={[60, 40]}
-          colors={["#275be8", "#c4e8ef"]}
+          title="Ticket by type"
+          series={[50, 40, 10]}
+          colors={["#33cc33", "#9933ff", "#0000cc"]}
+          labels={["Function Failure", "UI/UX", "others"]}
         />
         <PieChart
           title="Ticekts by Priority"
-          value={5684}
-          series={[65, 25, 10]}
-          colors={["#275be8", "#c4e8ef", "red"]}
+          series={[5, 25, 70]}
+          colors={["#000000", "#ff0000", "#e7e713"]}
+          labels={["urgent", "high", "low"]}
         />
       </Box>
       <Box
@@ -149,14 +157,14 @@ const Home = () => {
               key={property._id}
               id={property._id}
               title={property.title}
-              description={property.photo}
-              github={property.photo}
-              preview={property.photo}
-              tag={property.photo}
-              projectType={property.photo}
-              members={property.photo}
+              description={property.description}
+              github={property.github}
+              preview={property.preview}
+              tag={property.tag}
+              projectType={property.projectType}
+              members={property.members}
               photo={property.photo}
-              lead={property.photo}
+              lead={property.lead.name}
             />
           ))}
         </Box>

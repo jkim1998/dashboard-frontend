@@ -1,6 +1,11 @@
 import { Box, Stack, Typography } from "@pankod/refine-mui";
-
+import PersonIcon from "@mui/icons-material/Person";
+import CodeIcon from "@mui/icons-material/Code";
+import BugReportIcon from "@mui/icons-material/BugReport";
+import EngineeringIcon from "@mui/icons-material/Engineering";
 import { propertyReferralsInfo } from "constants/index";
+
+import { Projects, Users, Tickets } from "../../components/query";
 
 interface ProgressBarProps {
   title: string;
@@ -52,10 +57,71 @@ const PropertyReferrals = () => {
         Ticket completion by type
       </Typography>
 
-      <Stack my="20px" direction="column" gap={4}>
-        {propertyReferralsInfo.map((bar) => (
+      <Stack marginTop="20px" direction="column" gap={4}>
+        {/* {propertyReferralsInfo.map((bar) => (
           <ProgressBar key={bar.title} {...bar} />
-        ))}
+        ))} */}
+        <Box
+          display="flex"
+          flexDirection="row"
+          borderBottom="1px solid #669999"
+          paddingBottom={1}
+        >
+          <Box border="1px solid #669999" borderRadius="10px" padding={1}>
+            <CodeIcon style={{ fontSize: 30 }} />
+          </Box>
+          <Stack direction="column" paddingLeft={1}>
+            <Typography>Projects</Typography>
+            <Projects />
+          </Stack>
+        </Box>
+        <Box
+          display="flex"
+          flexDirection="row"
+          borderBottom="1px solid #669999"
+          paddingBottom={1}
+        >
+          <Box
+            alignItems="center"
+            border="1px solid #669999"
+            borderRadius="10px"
+            padding={1}
+          >
+            <PersonIcon style={{ fontSize: 30 }} />
+          </Box>
+          <Stack direction="column" paddingLeft={1}>
+            <Typography>Total Users</Typography>
+            <Users />
+          </Stack>
+        </Box>
+        <Box
+          display="flex"
+          flexDirection="row"
+          borderBottom="1px solid #669999"
+          paddingBottom={1}
+        >
+          <Box border="1px solid #669999" borderRadius="10px" padding={1}>
+            <BugReportIcon style={{ fontSize: 30 }} />
+          </Box>
+          <Stack direction="column" paddingLeft={1}>
+            <Typography>Tickets in Development</Typography>
+            <Tickets />
+          </Stack>
+        </Box>
+        <Box
+          display="flex"
+          flexDirection="row"
+          borderBottom="1px solid #669999"
+          paddingBottom={1}
+        >
+          <Box border="1px solid #669999" borderRadius="10px" padding={1}>
+            <EngineeringIcon style={{ fontSize: 30 }} />
+          </Box>
+          <Stack direction="column" paddingLeft={1}>
+            <Typography>Total Developers</Typography>
+            <Typography>16</Typography>
+          </Stack>
+        </Box>
       </Stack>
     </Box>
   );

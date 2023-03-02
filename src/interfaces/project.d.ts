@@ -25,3 +25,11 @@ export interface ProjectCardProps {
   members: string;
   lead: string;
 }
+
+export interface BannerProps {
+  id?: BaseKey | undefined;
+  name: string;
+  email: string;
+  avatar: string;
+  allProjects: Array<string>;
+}
