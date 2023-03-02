@@ -14,9 +14,11 @@ import {
   TableHead,
   TableBody,
 } from "@pankod/refine-mui";
+import { useList } from "@pankod/refine-core";
 import { Link } from "@pankod/refine-react-router-v6";
 
 import { TicketCardProp, InfoBarProps } from "interfaces/agent";
+import FindUserWithID from "components/query/FindUserWithID";
 interface ChildProps {
   onData: (data: string) => void;
 }
@@ -44,6 +46,7 @@ const TicketCard = ({
   project,
   onClick,
 }: TicketCardProp) => {
+
   const { data: currentUser } = useGetIdentity();
 
   const generateLink = () => {
@@ -54,33 +57,38 @@ const TicketCard = ({
   return (
     <TableBody
       onClick={onClick}
-      style={{
+      sx={{
         width: "100%",
+        height: "50%",
+        cursor: "pointer",
+        background: "transparent",
+        "&:hover": {
+          boxShadow: "0 22px 45px 2px rgba(176, 176, 176, 0.1)",
+          background: "#dadefa",
+          transition: "all 0.4s ease-in-out",
+        },
       }}
     >
       <TableCell
-        align="center"
+        align="left"
         style={{
           width: "4%",
-          backgroundColor: "green",
         }}
       >
         {111}
       </TableCell>
       <TableCell
-        align="center"
+        align="left"
         style={{
           width: "6%",
-          backgroundColor: "red",
         }}
       >
         {priority ? priority : "urgent"}
       </TableCell>
       <TableCell
-        align="center"
+        align="left"
         style={{
           width: "10%",
-          backgroundColor: "blue",
         }}
       >
         {title}
@@ -89,7 +97,6 @@ const TicketCard = ({
         align="left"
         style={{
           width: "20%",
-          backgroundColor: "yellow",
         }}
       >
         {project ? project : "project 444"}
@@ -98,7 +105,6 @@ const TicketCard = ({
         align="left"
         style={{
           width: "40%",
-          backgroundColor: "brown",
         }}
       >
         {description}
@@ -107,10 +113,9 @@ const TicketCard = ({
         align="left"
         style={{
           width: "20%",
-          backgroundColor: "skyblue",
         }}
       >
-        {creator}
+         {typeof creator === "string" ? FindUserWithID(creator) : ""}
       </TableCell>
       {/* <TableCell align="right">{project}</TableCell> */}
     </TableBody>

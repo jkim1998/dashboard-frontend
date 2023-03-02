@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Add } from "@mui/icons-material";
-import { useList } from "@pankod/refine-core";
+import { useList, useOne, HttpError } from "@pankod/refine-core";
 import { useTable } from "@pankod/refine-core";
 import {
   Box,
@@ -15,6 +15,7 @@ import {
   TableCell,
   TableHead,
   TableBody,
+  TablePagination,
   Button,
 } from "@pankod/refine-mui";
 import { useNavigate } from "@pankod/refine-react-router-v6";
@@ -25,6 +26,7 @@ import { ProjectCard, CustomButton, TicketCard } from "components";
 import { Error, Loading } from "../index";
 
 import TicketDetails from "./TicketDetails";
+// import FindUserWithID from "components/query/FindUserWithID";
 
 interface TicketDetailsProps {
   id: string;
@@ -34,14 +36,26 @@ interface TicketDetailsProps {
   priority: string;
   project: string;
 }
+interface User {
+  _id: string;
+  name: string;
+  email: string;
+  avatar: string;
+  allProperties: any[];
+  __v: number;
+}
 
 const ReadTickets = () => {
   const navigate = useNavigate();
   const [ticketID, setTicketID] = useState<string[] | undefined>(undefined);
+  const [userID, setUserID] = useState();
   const { data, isLoading, isError } = useList({ resource: "tickets" });
   const [detail, setDetail] = useState(false);
-  
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
   const ticketData = data?.data ?? [];
+  const totalCount = ticketData.length;
 
   if (isLoading) return <Loading />;
   if (isError) return <Error />;
@@ -49,7 +63,14 @@ const ReadTickets = () => {
   const toggleDetail = () => {
     setDetail(!detail);
   };
+  const handleChangePage = (event: any, newPage: number) => {
+    setPage(newPage);
+  };
 
+  const handleChangeRowsPerPage = (event: any) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
   const showDetail = ({
     id,
     title,
@@ -62,9 +83,6 @@ const ReadTickets = () => {
       String
     );
     setTicketID(ticketArr);
-    if (ticketID) {
-      console.log("asdfasd: ", ticketID);
-    }
     setDetail(true);
   };
 
@@ -72,9 +90,18 @@ const ReadTickets = () => {
     setDetail(false);
   };
 
+  // console.log("qqqqq:", ticketData[0].creator);
+  // console.log("asdfa:", totalCount);
+
+
   return (
-    <>
-      <Box height="50%">
+    <Box>
+      <Box
+        sx={{
+          p: 1,
+          overflow: "hidden",
+        }}
+      >
         <Stack
           direction="row"
           justifyContent="space-between"
@@ -97,96 +124,106 @@ const ReadTickets = () => {
             display: "flex",
             flexWrap: "wrap",
             gap: "20px",
+            height: "100%",
+            background: "#fcfcfc",
+            borderRadius: "15px",
           }}
         >
           <TableContainer
-            style={{ width: "100%" }}
+            style={{ width: "100%", height: "100%" }}
             // component={Link}
           >
             <Table>
               <TableHead style={{ width: "100%" }}>
-                <TableCell
-                  align="center"
-                  style={{
-                    width: "4%",
-                    backgroundColor: "green",
-                  }}
-                >
-                  id
-                </TableCell>
-                <TableCell
-                  align="center"
-                  style={{
-                    width: "6%",
-                    backgroundColor: "red",
-                  }}
-                >
-                  priority
-                </TableCell>
-                <TableCell
-                  align="center"
-                  style={{
-                    width: "10%",
-                    backgroundColor: "blue",
-                  }}
-                >
-                  title
-                </TableCell>
-                <TableCell
-                  align="center"
-                  style={{
-                    width: "20%",
-                    backgroundColor: "yellow",
-                  }}
-                >
-                  project
-                </TableCell>
-                <TableCell
-                  align="center"
-                  style={{
-                    width: "40%",
-                    backgroundColor: "brown",
-                  }}
-                >
-                  Summary
-                </TableCell>
-                <TableCell
-                  align="center"
-                  style={{
-                    width: "20%",
-                    backgroundColor: "skyblue",
-                  }}
-                >
-                  creator
-                </TableCell>
+                <TableRow>
+                  <TableCell
+                    align="center"
+                    style={{
+                      width: "4%",
+                    }}
+                  >
+                    id
+                  </TableCell>
+                  <TableCell
+                    align="left"
+                    style={{
+                      width: "6%",
+                    }}
+                  >
+                    priority
+                  </TableCell>
+                  <TableCell
+                    align="left"
+                    style={{
+                      width: "10%",
+                    }}
+                  >
+                    title
+                  </TableCell>
+                  <TableCell
+                    align="left"
+                    style={{
+                      width: "20%",
+                    }}
+                  >
+                    project
+                  </TableCell>
+                  <TableCell
+                    align="left"
+                    style={{
+                      width: "40%",
+                    }}
+                  >
+                    Summary
+                  </TableCell>
+                  <TableCell
+                    align="left"
+                    style={{
+                      width: "20%",
+                    }}
+                  >
+                    creator
+                  </TableCell>
+                </TableRow>
               </TableHead>
             </Table>
-            {ticketData.map((ticket) => (
-              <Table key={ticket._id}>
-                <TicketCard
-                  id={ticket._id}
-                  title={ticket.title}
-                  description={ticket.description}
-                  creator={ticket.creator}
-                  priority={ticket.priority}
-                  project={ticket.project}
-                  onClick={() =>
-                    showDetail({
-                      id: ticket._id,
-                      title: ticket.title,
-                      description: ticket.description,
-                      creator: ticket.creator,
-                      priority: ticket.priority,
-                      project: ticket.project,
-                    })
-                  }
-                />
-              </Table>
-            ))}
+            {ticketData.map((ticket) => {
+              return (
+                <Table key={ticket._id}>
+                  <TicketCard
+                    id={ticket._id}
+                    title={ticket.title}
+                    description={ticket.description}
+                    creator={ticket.creator}
+                    priority={ticket.priority}
+                    project={ticket.project}
+                    onClick={() =>
+                      showDetail({
+                        id: ticket._id,
+                        title: ticket.title,
+                        description: ticket.description,
+                        creator: ticket.creator,
+                        priority: ticket.priority,
+                        project: ticket.project,
+                      })
+                    }
+                  />
+                </Table>
+              );
+            })}
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25, 50, { label: "All", value: -1 }]}
+              component="div"
+              count={totalCount}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
           </TableContainer>
         </Box>
       </Box>
-      <Box height="50%">
+      <Box>
         {detail && (
           <TicketDetails
             onClick={hideDetail}
@@ -199,7 +236,7 @@ const ReadTickets = () => {
           />
         )}
       </Box>
-    </>
+    </Box>
   );
 };
 

@@ -16,6 +16,7 @@ import {
   TableHead,
   TableBody,
   Button,
+  styled,
 } from "@pankod/refine-mui";
 import { useNavigate } from "@pankod/refine-react-router-v6";
 import { useMemo } from "react";
@@ -24,13 +25,7 @@ import { MouseEvent } from "react";
 import { ProjectCard, CustomButton, TicketCard } from "components";
 import { Error, Loading } from "../index";
 import { ProjectImage } from "assets";
-interface Item {
-  title: string;
-}
-
-interface ChildComponentProps {
-  items: Item[];
-}
+import FindUserWithID from "components/query/FindUserWithID";
 
 interface TicketDetailsProps {
   onClick: React.MouseEventHandler<HTMLDivElement>;
@@ -42,13 +37,21 @@ interface TicketDetailsProps {
   project?: string | undefined;
   screenshot?: string | undefined;
 }
+const AnimatedBox = styled(Box)`
+  animation-name: changeColor;
+  animation-duration: 3s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
 
-const styles = {
-  tableHead: {
-    backgroundColor: "#f2f2f2",
-    color: "white",
-  },
-};
+  @keyframes changeColor {
+    from {
+      background-color: #dadefa;
+    }
+    to {
+      background-color: #fcfcfc;
+    }
+  }
+`;
 
 const TicketDetails: React.FC<TicketDetailsProps> = ({
   onClick,
@@ -61,53 +64,46 @@ const TicketDetails: React.FC<TicketDetailsProps> = ({
   screenshot,
 }) => {
   const navigate = useNavigate();
-  // const { data, isLoading, isError } = useList({ resource: "tickets" });
-  // const [showDetail, setDetail] = useState(false);
-
-  // const ticketData = data?.data ?? [];
-
-  // const toggleDetail = () => {
-  //   setDetail(!showDetail);
-  // };
-  // if (isLoading) return <Loading />;
-  // if (isError) return <Error />;
   return (
-    <Box
+    <AnimatedBox
       borderRadius="15px"
       padding="20px"
       marginTop={5}
-      bgcolor="#FCFCFC"
       width="100%"
       max-height="80%"
+      textTransform="capitalize"
     >
       <Stack
         display="flex"
         flexDirection="row"
         justifyContent="space-between"
         width="100%"
+        marginBottom={3}
       >
-        <Stack display="flex" flexDirection="row" marginLeft={5} gap={5}>
-          <Typography marginBottom={5}>{id}</Typography>
-          <Typography>Priority: {priority}</Typography>
+        <Stack
+          display="flex"
+          flexDirection="row"
+          alignItems="center"
+          gap={5}
+          width="100%"
+        >
+          <Typography>id: {id}</Typography>
+          <Typography>priority: {priority}</Typography>
+          <Typography>project#: {project} </Typography>
+          <Typography>
+            creator:
+            {typeof creator === "string" ? FindUserWithID(creator) : ""}
+          </Typography>
         </Stack>
         <Button onClick={onClick as (event: MouseEvent) => void}>x</Button>
       </Stack>
-      <Stack
-        display="flex"
-        flexDirection="row"
-        bgcolor="red"
-        width="100%"
-        gap={5}
-      >
-        <img src={ProjectImage} width={350} />
-        {/* {props.items.map((item) => (
-          <Typography>Ticket#: {item.title}</Typography>
-        ))} */}
-        <Typography>Description: {description}</Typography>
-        <Typography>Creator: {creator}</Typography>
-        <Typography>Project#: {project} </Typography>
+      <Stack display="flex" flexDirection="row" width="100%" gap={5}>
+        <img src={screenshot ? screenshot : ProjectImage} width={350} />
+        <Typography paddingTop={3} textTransform="none">
+          {description}
+        </Typography>
       </Stack>
-    </Box>
+    </AnimatedBox>
   );
 };
 

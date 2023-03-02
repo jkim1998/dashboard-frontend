@@ -14,7 +14,7 @@ export interface TicketCardProp {
   id?: BaseKey | undefined;
   title: string;
   description: string;
-  creator: string;
+  creator?: string;
   priority: string;
   project: string;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
