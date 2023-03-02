@@ -10,7 +10,7 @@ function checkImage(url: any) {
   return img.width !== 0 && img.height !== 0;
 }
 
-const Profile = ({ type, name, avatar, email, projects }: ProfileProps) => (
+const Profile = ({ type, name, avatar, email, projects, phone, location }: ProfileProps) => (
   <Box>
     <Typography fontSize={25} fontWeight={700} color="#11142D">
       {type} Profile
@@ -25,11 +25,15 @@ const Profile = ({ type, name, avatar, email, projects }: ProfileProps) => (
         }}
       >
         <img
-          src="https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80"
-          width={340}
-          height={320}
-          alt="abstract"
-          className="my_profile-bg"
+          src={
+            checkImage(avatar)
+              ? avatar
+              : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
+          }
+          width={170}
+          height={160}
+          alt="user_profile"
+          className="my_profile_user-img"
         />
         <Box
           flex={1}
@@ -44,18 +48,6 @@ const Profile = ({ type, name, avatar, email, projects }: ProfileProps) => (
             flexDirection={{ xs: "column", md: "row" }}
             gap="20px"
           >
-            <img
-              src={
-                checkImage(avatar)
-                  ? avatar
-                  : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
-              }
-              width={78}
-              height={78}
-              alt="user_profile"
-              className="my_profile_user-img"
-            />
-
             <Box
               flex={1}
               display="flex"
@@ -68,7 +60,7 @@ const Profile = ({ type, name, avatar, email, projects }: ProfileProps) => (
                   {name}
                 </Typography>
                 <Typography fontSize={16} color="#808191">
-                  Realestate Agent
+                  Developer
                 </Typography>
               </Stack>
 
@@ -85,7 +77,7 @@ const Profile = ({ type, name, avatar, email, projects }: ProfileProps) => (
                   >
                     <Place sx={{ color: "#11142D" }} />
                     <Typography fontSize={14} color="#11142D">
-                      4517 Washington Ave. Manchaster, Kentucky 39495
+                     {location}
                     </Typography>
                   </Box>
                 </Stack>
@@ -103,7 +95,7 @@ const Profile = ({ type, name, avatar, email, projects }: ProfileProps) => (
                     >
                       <Phone sx={{ color: "#11142D" }} />
                       <Typography fontSize={14} color="#11142D" noWrap>
-                        +0123 456 7890
+                        {phone}
                       </Typography>
                     </Box>
                   </Stack>

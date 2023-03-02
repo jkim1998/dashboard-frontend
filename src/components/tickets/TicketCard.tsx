@@ -41,6 +41,7 @@ const TicketCard = ({
   description,
   creator,
   priority,
+  project,
   onClick,
 }: TicketCardProp) => {
   const { data: currentUser } = useGetIdentity();
@@ -51,12 +52,66 @@ const TicketCard = ({
     return `/tickets/show/${id}`;
   };
   return (
-    <TableBody onClick={onClick}>
-      <TableCell align="right">{priority}</TableCell>
-      <TableCell align="right">{title}</TableCell>
-      <TableCell align="right">{description}</TableCell>
-      <TableCell align="right">{creator}</TableCell>
-      <TableCell align="right">{id}</TableCell>
+    <TableBody
+      onClick={onClick}
+      style={{
+        width: "100%",
+      }}
+    >
+      <TableCell
+        align="center"
+        style={{
+          width: "4%",
+          backgroundColor: "green",
+        }}
+      >
+        {111}
+      </TableCell>
+      <TableCell
+        align="center"
+        style={{
+          width: "6%",
+          backgroundColor: "red",
+        }}
+      >
+        {priority ? priority : "urgent"}
+      </TableCell>
+      <TableCell
+        align="center"
+        style={{
+          width: "10%",
+          backgroundColor: "blue",
+        }}
+      >
+        {title}
+      </TableCell>
+      <TableCell
+        align="left"
+        style={{
+          width: "20%",
+          backgroundColor: "yellow",
+        }}
+      >
+        {project ? project : "project 444"}
+      </TableCell>
+      <TableCell
+        align="left"
+        style={{
+          width: "40%",
+          backgroundColor: "brown",
+        }}
+      >
+        {description}
+      </TableCell>
+      <TableCell
+        align="left"
+        style={{
+          width: "20%",
+          backgroundColor: "skyblue",
+        }}
+      >
+        {creator}
+      </TableCell>
       {/* <TableCell align="right">{project}</TableCell> */}
     </TableBody>
   );

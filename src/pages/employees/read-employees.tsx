@@ -38,6 +38,8 @@ const Agents = () => {
               email={employee.email}
               avatar={employee.avatar}
               numProject={employee.allProjects.length}
+              phone={employee.phone}
+              location={employee.location}
             />
           ))}
         </Box>

@@ -15,6 +15,8 @@ export interface ProfileProps {
   avatar: string;
   email: string;
   projects: Array | undefined;
+  phone: string;
+  location: string;
 }
 
 export interface ProjectProps {

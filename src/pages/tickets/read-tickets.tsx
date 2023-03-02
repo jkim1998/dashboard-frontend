@@ -26,33 +26,13 @@ import { Error, Loading } from "../index";
 
 import TicketDetails from "./TicketDetails";
 
-const styles = {
-  tableHead: {
-    backgroundColor: "blue",
-    color: "white",
-    width: "100%",
-  },
-  tableHead1: {
-    backgroundColor: "green",
-    color: "white",
-    width: "100%",
-  },
-  tableHead2: {
-    display: "flex",
-    // flexDirection: "row",
-    // justifyContent: "space-between",
-    backgroundColor: "purple",
-    color: "white",
-    width: "100%",
-  },
-};
-
 interface TicketDetailsProps {
   id: string;
   title: string;
   description: string;
   creator: string;
   priority: string;
+  project: string;
 }
 
 const ReadTickets = () => {
@@ -60,7 +40,7 @@ const ReadTickets = () => {
   const [ticketID, setTicketID] = useState<string[] | undefined>(undefined);
   const { data, isLoading, isError } = useList({ resource: "tickets" });
   const [detail, setDetail] = useState(false);
-
+  
   const ticketData = data?.data ?? [];
 
   if (isLoading) return <Loading />;
@@ -76,12 +56,15 @@ const ReadTickets = () => {
     description,
     creator,
     priority,
+    project,
   }: TicketDetailsProps) => {
-    const ticketArr = [id, title, description, creator, priority].map(String);
+    const ticketArr = [id, title, description, creator, priority, project].map(
+      String
+    );
     setTicketID(ticketArr);
-    // if (ticketID) {
-    //   console.log("asdfasd: ", ticketID[0]);
-    // }
+    if (ticketID) {
+      console.log("asdfasd: ", ticketID);
+    }
     setDetail(true);
   };
 
@@ -114,47 +97,90 @@ const ReadTickets = () => {
             display: "flex",
             flexWrap: "wrap",
             gap: "20px",
-            backgroundColor: "yellow",
           }}
         >
-          <Button onClick={() => toggleDetail()}>x</Button>
           <TableContainer
-            style={styles.tableHead}
+            style={{ width: "100%" }}
             // component={Link}
           >
-            <TableHead style={styles.tableHead1}>
-              <TableRow style={styles.tableHead2}>
-                <TableCell style={styles.tableHead1} align="right">
+            <Table>
+              <TableHead style={{ width: "100%" }}>
+                <TableCell
+                  align="center"
+                  style={{
+                    width: "4%",
+                    backgroundColor: "green",
+                  }}
+                >
+                  id
+                </TableCell>
+                <TableCell
+                  align="center"
+                  style={{
+                    width: "6%",
+                    backgroundColor: "red",
+                  }}
+                >
                   priority
                 </TableCell>
-                <TableCell align="right">title</TableCell>
-                <TableCell align="right">id</TableCell>
-                <TableCell align="right">creator</TableCell>
-                <TableCell align="right">project</TableCell>
-              </TableRow>
-            </TableHead>
+                <TableCell
+                  align="center"
+                  style={{
+                    width: "10%",
+                    backgroundColor: "blue",
+                  }}
+                >
+                  title
+                </TableCell>
+                <TableCell
+                  align="center"
+                  style={{
+                    width: "20%",
+                    backgroundColor: "yellow",
+                  }}
+                >
+                  project
+                </TableCell>
+                <TableCell
+                  align="center"
+                  style={{
+                    width: "40%",
+                    backgroundColor: "brown",
+                  }}
+                >
+                  Summary
+                </TableCell>
+                <TableCell
+                  align="center"
+                  style={{
+                    width: "20%",
+                    backgroundColor: "skyblue",
+                  }}
+                >
+                  creator
+                </TableCell>
+              </TableHead>
+            </Table>
             {ticketData.map((ticket) => (
               <Table key={ticket._id}>
-                <TableBody>
-                  <TableRow>
-                    <TicketCard
-                      id={ticket._id}
-                      title={ticket.title}
-                      description={ticket.description}
-                      creator={ticket.creator}
-                      priority={ticket.priority}
-                      onClick={() =>
-                        showDetail({
-                          id: ticket._id,
-                          title: ticket.title,
-                          description: ticket.description,
-                          creator: ticket.creator,
-                          priority: ticket.priority,
-                        })
-                      }
-                    />
-                  </TableRow>
-                </TableBody>
+                <TicketCard
+                  id={ticket._id}
+                  title={ticket.title}
+                  description={ticket.description}
+                  creator={ticket.creator}
+                  priority={ticket.priority}
+                  project={ticket.project}
+                  onClick={() =>
+                    showDetail({
+                      id: ticket._id,
+                      title: ticket.title,
+                      description: ticket.description,
+                      creator: ticket.creator,
+                      priority: ticket.priority,
+                      project: ticket.project,
+                    })
+                  }
+                />
               </Table>
             ))}
           </TableContainer>
@@ -169,6 +195,7 @@ const ReadTickets = () => {
             description={ticketID?.[2]}
             creator={ticketID?.[3]}
             priority={ticketID?.[4]}
+            project={ticketID?.[5]}
           />
         )}
       </Box>

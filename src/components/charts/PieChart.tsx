@@ -38,12 +38,12 @@ const PieChart = ({ title, value, series, colors }: PieChartProps) => {
                 options={{
                     chart: { type: "donut" },
                     colors,
-                    legend: { show: false },
-                    dataLabels: { enabled: false },
+                    legend: { show: true },
+                    dataLabels: { enabled: true },
                 }}
                 series={series}
                 type="donut"
-                width="120px"
+                maxWidth="120px"
             />
         </Box>
     );

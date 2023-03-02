@@ -4,6 +4,8 @@ export interface AgentCardProp {
   id?: BaseKey | undefined;
   name: string;
   email: string;
+  phone: string;
+  location: string;
   avatar: string;
   numProject: number;
 }
@@ -14,7 +16,7 @@ export interface TicketCardProp {
   description: string;
   creator: string;
   priority: string;
-  // project: string;
+  project: string;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 

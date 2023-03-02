@@ -22,6 +22,8 @@ const MyProfile = () => {
       email={myProfile.email}
       avatar={myProfile.avatar}
       projects={myProfile.allProjects}
+      phone={myProfile.phone}
+      location={myProfile.location}
     />
   );
 };

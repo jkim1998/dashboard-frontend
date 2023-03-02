@@ -102,7 +102,7 @@ const ProjectTicket = () => {
                   description={ticket.description}
                   creator={ticket.creator}
                   priority={ticket.priority}
-                  //   project={ticket.project}
+                    project={ticket.project}
                 />
               </>
             ))}
