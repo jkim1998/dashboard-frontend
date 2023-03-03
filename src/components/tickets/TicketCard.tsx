@@ -38,6 +38,7 @@ const InfoBar = ({ icon, name }: InfoBarProps) => (
 );
 
 const TicketCard = ({
+  num,
   id,
   title,
   description,
@@ -46,7 +47,6 @@ const TicketCard = ({
   project,
   onClick,
 }: TicketCardProp) => {
-
   const { data: currentUser } = useGetIdentity();
 
   const generateLink = () => {
@@ -62,6 +62,7 @@ const TicketCard = ({
         height: "50%",
         cursor: "pointer",
         background: "transparent",
+        // background: "blue",
         "&:hover": {
           boxShadow: "0 22px 45px 2px rgba(176, 176, 176, 0.1)",
           background: "#dadefa",
@@ -73,25 +74,58 @@ const TicketCard = ({
         align="left"
         style={{
           width: "4%",
+          position: "relative",
         }}
       >
-        {111}
-      </TableCell>
-      <TableCell
-        align="left"
-        style={{
-          width: "6%",
-        }}
-      >
-        {priority ? priority : "urgent"}
+        <Typography
+          style={{
+            position: "absolute",
+            width: "100%",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {num}
+        </Typography>
       </TableCell>
       <TableCell
         align="left"
         style={{
           width: "10%",
+          position: "relative",
         }}
       >
-        {title}
+        <Typography
+          style={{
+            position: "absolute",
+            width: "100%",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {priority ? priority : "urgent"}
+        </Typography>
+      </TableCell>
+      <TableCell
+        align="left"
+        style={{
+          width: "10%",
+          position: "relative",
+        }}
+      >
+        <Typography
+          style={{
+            position: "absolute",
+            width: "100%",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {title}
+        </Typography>
       </TableCell>
       <TableCell
         align="left"
@@ -104,18 +138,41 @@ const TicketCard = ({
       <TableCell
         align="left"
         style={{
-          width: "40%",
+          width: "34%",
+          position: "relative",
         }}
       >
-        {description}
+        <Typography
+          style={{
+            position: "absolute",
+            width: "95%",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            paddingLeft: 0,
+          }}
+        >
+          {description}
+        </Typography>
       </TableCell>
       <TableCell
         align="left"
         style={{
           width: "20%",
+          position: "relative",
         }}
       >
-         {typeof creator === "string" ? FindUserWithID(creator) : ""}
+        <Typography
+          style={{
+            position: "absolute",
+            width: "90%",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {typeof creator === "string" ? FindUserWithID(creator) : ""}
+        </Typography>
       </TableCell>
       {/* <TableCell align="right">{project}</TableCell> */}
     </TableBody>

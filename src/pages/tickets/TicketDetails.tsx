@@ -3,6 +3,12 @@ import { Add } from "@mui/icons-material";
 import { useList } from "@pankod/refine-core";
 import { useTable } from "@pankod/refine-core";
 import {
+  useDelete,
+  useGetIdentity,
+  useShow,
+  useOne,
+} from "@pankod/refine-core";
+import {
   Box,
   Stack,
   Typography,
@@ -64,6 +70,37 @@ const TicketDetails: React.FC<TicketDetailsProps> = ({
   screenshot,
 }) => {
   const navigate = useNavigate();
+  const { mutate } = useDelete();
+  const { data: user } = useGetIdentity();
+  const { data, isLoading, isError } = useOne({
+    resource: "users",
+    id: user?.userid,
+  });
+
+  const myProfile = data?.data ?? [];
+  const isCurrentUser = myProfile._id === creator;
+
+  const editTicket = () => {
+    navigate("/");
+  };
+
+  const handleDeleteProject = () => {
+    const response = confirm("Are you sure you want to delete this Ticket?");
+    if (response) {
+      mutate(
+        {
+          resource: "tickets",
+          id: id as string,
+        },
+        {
+          onSuccess: () => {
+            // navigate("/");
+            console.log("successfully deleted ticket");
+          },
+        }
+      );
+    }
+  };
   return (
     <AnimatedBox
       borderRadius="15px"
@@ -95,7 +132,41 @@ const TicketDetails: React.FC<TicketDetailsProps> = ({
             {typeof creator === "string" ? FindUserWithID(creator) : ""}
           </Typography>
         </Stack>
-        <Button onClick={onClick as (event: MouseEvent) => void}>x</Button>
+        <Stack direction="row">
+          {isCurrentUser ? (
+            <>
+              <CustomButton
+                title={"Edit"}
+                backgroundColor={"#d42e2e"}
+                color="#FCFCFC"
+                // icon={dropdown ? <ArrowDropUp /> : <ArrowDropDown />}
+                handleClick={() => {
+                  editTicket();
+                }}
+              />
+              <CustomButton
+                title={"delete"}
+                backgroundColor={"#d42e2e"}
+                color="#FCFCFC"
+                // icon={dropdown ? <ArrowDropUp /> : <ArrowDropDown />}
+                handleClick={() => {
+                  handleDeleteProject();
+                }}
+              />
+            </>
+          ) : (
+            <CustomButton
+              title={"Request edit"}
+              backgroundColor={"#d42e2e"}
+              color="#FCFCFC"
+              // icon={dropdown ? <ArrowDropUp /> : <ArrowDropDown />}
+              handleClick={() => {
+                editTicket();
+              }}
+            />
+          )}
+          <Button onClick={onClick as (event: MouseEvent) => void}>x</Button>
+        </Stack>
       </Stack>
       <Stack display="flex" flexDirection="row" width="100%" gap={5}>
         <img src={screenshot ? screenshot : ProjectImage} width={350} />

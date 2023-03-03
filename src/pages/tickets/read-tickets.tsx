@@ -26,6 +26,8 @@ import { ProjectCard, CustomButton, TicketCard } from "components";
 import { Error, Loading } from "../index";
 
 import TicketDetails from "./TicketDetails";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 // import FindUserWithID from "components/query/FindUserWithID";
 
 interface TicketDetailsProps {
@@ -53,6 +55,8 @@ const ReadTickets = () => {
   const [detail, setDetail] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [sortColumn, setSortColumn] = useState("");
+  const [sortDirection, setSortDirection] = useState("asc");
 
   const ticketData = data?.data ?? [];
   const totalCount = ticketData.length;
@@ -92,8 +96,27 @@ const ReadTickets = () => {
 
   // console.log("qqqqq:", ticketData[0].creator);
   // console.log("asdfa:", totalCount);
+  const handleSort = (column: string) => {
+    if (sortColumn === column) {
+      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+    } else {
+      setSortColumn(column);
+      setSortDirection("asc");
+    }
+  };
 
-
+  let sortedData = [...ticketData];
+  if (sortColumn) {
+    sortedData = sortedData.sort((a, b) => {
+      if (a[sortColumn] < b[sortColumn]) {
+        return sortDirection === "asc" ? -1 : 1;
+      } else if (a[sortColumn] > b[sortColumn]) {
+        return sortDirection === "asc" ? 1 : -1;
+      } else {
+        return 0;
+      }
+    });
+  }
   return (
     <Box>
       <Box
@@ -142,36 +165,103 @@ const ReadTickets = () => {
                       width: "4%",
                     }}
                   >
-                    id
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      id
+                      {sortColumn === "id" && sortDirection === "asc" && (
+                        <KeyboardArrowUpIcon />
+                      )}
+                      {sortColumn === "id" && sortDirection === "desc" && (
+                        <KeyboardArrowDownIcon />
+                      )}
+                    </Box>
                   </TableCell>
                   <TableCell
                     align="left"
                     style={{
-                      width: "6%",
+                      width: "10%",
+                      alignItems: "center",
                     }}
+                    onClick={() => handleSort("priority")}
                   >
-                    priority
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      priority
+                      {sortColumn === "priority" && sortDirection === "asc" && (
+                        <KeyboardArrowUpIcon />
+                      )}
+                      {sortColumn === "priority" &&
+                        sortDirection === "desc" && <KeyboardArrowDownIcon />}
+                    </Box>
                   </TableCell>
                   <TableCell
                     align="left"
                     style={{
                       width: "10%",
                     }}
+                    onClick={() => handleSort("title")}
                   >
-                    title
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          background: "transparent",
+                          "&:hover": {
+                            boxShadow:
+                              "0 22px 45px 2px rgba(176, 176, 176, 0.1)",
+                            background: "#dadefa",
+                            transition: "all 0.4s ease-in-out",
+                          },
+                        }}
+                      >
+                        title
+                      </Typography>
+                      {sortColumn === "title" && sortDirection === "asc" && (
+                        <KeyboardArrowUpIcon />
+                      )}
+                      {sortColumn === "title" && sortDirection === "desc" && (
+                        <KeyboardArrowDownIcon />
+                      )}
+                    </Box>
                   </TableCell>
                   <TableCell
                     align="left"
                     style={{
                       width: "20%",
                     }}
+                    onClick={() => handleSort("project")}
                   >
-                    project
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      project
+                      {sortColumn === "project" && sortDirection === "asc" && (
+                        <KeyboardArrowUpIcon />
+                      )}
+                      {sortColumn === "project" && sortDirection === "desc" && (
+                        <KeyboardArrowDownIcon />
+                      )}
+                    </Box>
                   </TableCell>
                   <TableCell
                     align="left"
                     style={{
-                      width: "40%",
+                      width: "34%",
                     }}
                   >
                     Summary
@@ -181,16 +271,32 @@ const ReadTickets = () => {
                     style={{
                       width: "20%",
                     }}
+                    onClick={() => handleSort("creator")}
                   >
-                    creator
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      creator
+                      {sortColumn === "creator" && sortDirection === "asc" && (
+                        <KeyboardArrowUpIcon />
+                      )}
+                      {sortColumn === "creator" && sortDirection === "desc" && (
+                        <KeyboardArrowDownIcon />
+                      )}
+                    </Box>
                   </TableCell>
                 </TableRow>
               </TableHead>
             </Table>
-            {ticketData.map((ticket) => {
+            {sortedData.map((ticket, index) => {
+              const num = index + 1;
               return (
                 <Table key={ticket._id}>
                   <TicketCard
+                    num={num}
                     id={ticket._id}
                     title={ticket.title}
                     description={ticket.description}

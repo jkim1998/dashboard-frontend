@@ -11,6 +11,7 @@ export interface AgentCardProp {
 }
 
 export interface TicketCardProp {
+  num?: number | undefined;
   id?: BaseKey | undefined;
   title: string;
   description: string;
