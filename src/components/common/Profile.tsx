@@ -3,6 +3,7 @@ import { Box, Stack, Typography } from "@pankod/refine-mui";
 
 import { ProfileProps, ProjectProps } from "interfaces/common";
 import ProjectCard from "./ProjectCard";
+import { CustomButton, TicketCard } from "components";
 
 function checkImage(url: any) {
   const img = new Image();
@@ -10,13 +11,38 @@ function checkImage(url: any) {
   return img.width !== 0 && img.height !== 0;
 }
 
-const Profile = ({ type, name, avatar, email, projects, phone, location }: ProfileProps) => (
+const Profile = ({
+  type,
+  name,
+  avatar,
+  email,
+  projects,
+  phone,
+  location,
+}: ProfileProps) => (
   <Box>
     <Typography fontSize={25} fontWeight={700} color="#11142D">
       {type} Profile
     </Typography>
 
     <Box mt="20px" borderRadius="15px" padding="20px" bgcolor="#FCFCFC">
+      <Box
+        display="flex"
+        flexDirection="row"
+        alignItems="flex-end"
+        width="100%"
+        bgcolor="blue"
+      >
+        <CustomButton
+          title={"edit"}
+          backgroundColor={"#d42e2e"}
+          color="#FCFCFC"
+          // icon={dropdown ? <ArrowDropUp /> : <ArrowDropDown />}
+          handleClick={() => {
+            // editTicket();
+          }}
+        />
+      </Box>
       <Box
         sx={{
           display: "flex",
@@ -77,7 +103,7 @@ const Profile = ({ type, name, avatar, email, projects, phone, location }: Profi
                   >
                     <Place sx={{ color: "#11142D" }} />
                     <Typography fontSize={14} color="#11142D">
-                     {location}
+                      {location}
                     </Typography>
                   </Box>
                 </Stack>

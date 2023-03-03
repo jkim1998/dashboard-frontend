@@ -85,7 +85,7 @@ const TicketDetails: React.FC<TicketDetailsProps> = ({
   };
 
   const handleDeleteProject = () => {
-    const response = confirm("Are you sure you want to delete this Ticket?");
+    const response = window.confirm("Are you sure you want to delete this Ticket?");
     if (response) {
       mutate(
         {

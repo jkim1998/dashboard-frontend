@@ -2,6 +2,7 @@ import { useGetIdentity, useOne } from "@pankod/refine-core";
 
 import { Profile } from "components";
 import { Error, Loading } from "./index";
+import { ProjectCard, CustomButton, TicketCard } from "components";
 
 const MyProfile = () => {
   const { data: user } = useGetIdentity();
@@ -16,15 +17,17 @@ const MyProfile = () => {
   if (isError) return <Error />;
 
   return (
-    <Profile
-      type="My"
-      name={myProfile.name}
-      email={myProfile.email}
-      avatar={myProfile.avatar}
-      projects={myProfile.allProjects}
-      phone={myProfile.phone}
-      location={myProfile.location}
-    />
+    <>
+      <Profile
+        type="My"
+        name={myProfile.name}
+        email={myProfile.email}
+        avatar={myProfile.avatar}
+        projects={myProfile.allProjects}
+        phone={myProfile.phone}
+        location={myProfile.location}
+      />
+    </>
   );
 };
 
