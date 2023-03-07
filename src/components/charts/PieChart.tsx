@@ -4,7 +4,6 @@ import { Box, Typography, Stack } from "@pankod/refine-mui";
 import { PieChartProps } from "interfaces/home";
 
 const PieChart = ({ title, series, colors, labels }: PieChartProps) => {
-  console.log(labels);
   return (
     <Box
       id="chart"

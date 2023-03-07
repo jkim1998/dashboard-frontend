@@ -118,7 +118,7 @@ const ReadTickets = () => {
     });
   }
   return (
-    <Box>
+    <>
       <Box
         sx={{
           p: 1,
@@ -183,7 +183,7 @@ const ReadTickets = () => {
                   <TableCell
                     align="left"
                     style={{
-                      width: "10%",
+                      width: "6%",
                       alignItems: "center",
                     }}
                     onClick={() => handleSort("priority")}
@@ -261,7 +261,7 @@ const ReadTickets = () => {
                   <TableCell
                     align="left"
                     style={{
-                      width: "34%",
+                      width: "40%",
                     }}
                   >
                     Summary
@@ -294,7 +294,7 @@ const ReadTickets = () => {
             {sortedData.map((ticket, index) => {
               const num = index + 1;
               return (
-                <Table key={ticket._id}>
+                <Table key={ticket._id} width="100%">
                   <TicketCard
                     num={num}
                     id={ticket._id}
@@ -342,7 +342,7 @@ const ReadTickets = () => {
           />
         )}
       </Box>
-    </Box>
+    </>
   );
 };
 

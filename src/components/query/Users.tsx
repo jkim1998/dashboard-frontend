@@ -7,7 +7,28 @@ import {
   ProjectCard,
 } from "components";
 import { Banner } from "../../components";
-const Users = () => {
+export const CountUsers = () => {
+  const { data, isLoading, isError } = useList({
+    resource: "projects",
+    config: {
+      filters: [
+        {
+          field: "title",
+          operator: "contains",
+          value: "project",
+        },
+      ],
+      pagination: {
+        pageSize: 13,
+      },
+    },
+  });
+  const userData = data?.data ?? [];
+  console.log("aaa:", userData);
+  return <Typography fontWeight={700}>{userData.length}</Typography>;
+};
+
+export const Users = () => {
   const { data, isLoading, isError } = useList({
     resource: "users",
   });
@@ -15,5 +36,3 @@ const Users = () => {
 
   return <Typography fontWeight={700}>{userData.length}</Typography>;
 };
-
-export default Users;

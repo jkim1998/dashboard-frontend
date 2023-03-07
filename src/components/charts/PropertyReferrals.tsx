@@ -5,7 +5,7 @@ import BugReportIcon from "@mui/icons-material/BugReport";
 import EngineeringIcon from "@mui/icons-material/Engineering";
 import { propertyReferralsInfo } from "constants/index";
 
-import { Projects, Users, Tickets } from "../../components/query";
+import { Projects, CountUsers, Tickets } from "../../components/query";
 
 interface ProgressBarProps {
   title: string;
@@ -91,7 +91,7 @@ const PropertyReferrals = () => {
           </Box>
           <Stack direction="column" paddingLeft={1}>
             <Typography>Total Users</Typography>
-            <Users />
+            <CountUsers />
           </Stack>
         </Box>
         <Box

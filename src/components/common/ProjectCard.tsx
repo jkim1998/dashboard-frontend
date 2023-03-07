@@ -10,6 +10,7 @@ import {
 } from "@pankod/refine-mui";
 
 import { ProjectCardProps } from "interfaces/project.d";
+import FindUserWithID from "components/query/FindUserWithID";
 
 const ProjectCard = ({
   id,
@@ -74,7 +75,7 @@ const ProjectCard = ({
           height="fit-content"
         >
           <Typography fontSize={12} fontWeight={600} color="#475be8">
-            {lead}
+            {typeof lead  === "string" ? FindUserWithID(lead) : ""}
           </Typography>
         </Box>
       </CardContent>

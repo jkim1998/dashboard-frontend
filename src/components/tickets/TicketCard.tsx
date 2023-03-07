@@ -19,6 +19,8 @@ import { Link } from "@pankod/refine-react-router-v6";
 
 import { TicketCardProp, InfoBarProps } from "interfaces/agent";
 import FindUserWithID from "components/query/FindUserWithID";
+import FindProjectWithID from "components/query/FindProjectWithID";
+
 interface ChildProps {
   onData: (data: string) => void;
 }
@@ -58,11 +60,9 @@ const TicketCard = ({
     <TableBody
       onClick={onClick}
       sx={{
-        width: "100%",
         height: "50%",
         cursor: "pointer",
         background: "transparent",
-        // background: "blue",
         "&:hover": {
           boxShadow: "0 22px 45px 2px rgba(176, 176, 176, 0.1)",
           background: "#dadefa",
@@ -74,16 +74,15 @@ const TicketCard = ({
         align="left"
         style={{
           width: "4%",
-          position: "relative",
         }}
       >
         <Typography
           style={{
-            position: "absolute",
-            width: "100%",
-            whiteSpace: "nowrap",
             overflow: "hidden",
             textOverflow: "ellipsis",
+            display: "inline-block",
+            wordBreak: "break-word",
+            height: "100%",
           }}
         >
           {num}
@@ -92,17 +91,16 @@ const TicketCard = ({
       <TableCell
         align="left"
         style={{
-          width: "10%",
-          position: "relative",
+          width: "6%",
         }}
       >
         <Typography
           style={{
-            position: "absolute",
-            width: "100%",
-            whiteSpace: "nowrap",
             overflow: "hidden",
             textOverflow: "ellipsis",
+            display: "inline-block",
+            wordBreak: "break-word",
+            height: "100%",
           }}
         >
           {priority ? priority : "urgent"}
@@ -112,16 +110,16 @@ const TicketCard = ({
         align="left"
         style={{
           width: "10%",
-          position: "relative",
+          height: "10px",
         }}
       >
         <Typography
           style={{
-            position: "absolute",
-            width: "100%",
-            whiteSpace: "nowrap",
             overflow: "hidden",
             textOverflow: "ellipsis",
+            display: "inline-block",
+            wordBreak: "break-word",
+            height: "100%",
           }}
         >
           {title}
@@ -133,23 +131,21 @@ const TicketCard = ({
           width: "20%",
         }}
       >
-        {project ? project : "project 444"}
+        {typeof project === "string" ? FindProjectWithID(project) : ""}
       </TableCell>
       <TableCell
         align="left"
         style={{
-          width: "34%",
-          position: "relative",
+          width: "40%",
         }}
       >
         <Typography
           style={{
-            position: "absolute",
-            width: "95%",
-            whiteSpace: "nowrap",
             overflow: "hidden",
             textOverflow: "ellipsis",
-            paddingLeft: 0,
+            display: "inline-block",
+            wordBreak: "break-word",
+            height: "100%",
           }}
         >
           {description}
@@ -159,16 +155,15 @@ const TicketCard = ({
         align="left"
         style={{
           width: "20%",
-          position: "relative",
         }}
       >
         <Typography
           style={{
-            position: "absolute",
-            width: "90%",
-            whiteSpace: "nowrap",
             overflow: "hidden",
             textOverflow: "ellipsis",
+            display: "inline-block",
+            wordBreak: "break-word",
+            height: "100%",
           }}
         >
           {typeof creator === "string" ? FindUserWithID(creator) : ""}

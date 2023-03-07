@@ -8,7 +8,7 @@ import {
   ProjectCard,
 } from "components";
 
-import { Projects, Users, Tickets } from "../components/query";
+import { Projects, CountUsers, Tickets } from "../components/query";
 
 const Home = () => {
   const { data, isLoading, isError } = useList({

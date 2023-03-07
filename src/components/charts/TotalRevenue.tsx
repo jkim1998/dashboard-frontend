@@ -3,7 +3,7 @@ import { Box, Typography, Stack } from "@pankod/refine-mui";
 import { ArrowCircleUpRounded } from "@mui/icons-material";
 
 import { TotalRevenueOptions, TotalRevenueSeries } from "./chart.config";
-import { Projects, Users, Tickets } from "../../components/query";
+import { Projects, CountUsers, Tickets } from "../../components/query";
 
 const TotalRevenue = () => {
   return (

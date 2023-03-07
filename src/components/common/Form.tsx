@@ -13,6 +13,7 @@ import {
 
 import { useNavigate } from "@pankod/refine-react-router-v6";
 import { FormProps } from "interfaces/common";
+import { useList } from "@pankod/refine-core";
 import CustomButton from "./CustomButton";
 
 const Form = ({
@@ -26,6 +27,10 @@ const Form = ({
   photoUrl,
 }: FormProps) => {
   const navigate = useNavigate();
+
+  const { data, isLoading, isError } = useList({ resource: "projects" });
+
+  const allProjects = data?.data ?? [];
   return (
     <Box>
       <Typography fontSize={25} fontWeight={700} color="#11142d">
@@ -188,6 +193,26 @@ const Form = ({
                   </Select>
                 </FormControl>
               </Stack>
+
+              <Stack direction="row" gap={4}>
+                <FormControl sx={{ flex: 1 }}>
+                  <Select
+                    variant="outlined"
+                    color="info"
+                    displayEmpty
+                    required
+                    inputProps={{ "aria-label": "Without label" }}
+                    defaultValue=""
+                    {...register("project", {
+                      required: true,
+                    })}
+                  >
+                    {allProjects.map((project) => (
+                      <MenuItem value={project._id}>{project.title}</MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Stack>
             </>
           )}
           {title === "project" && (
@@ -224,7 +249,7 @@ const Form = ({
                   </Select>
                 </FormControl>
               </Stack>
-              {/* <FormControl>
+              <FormControl>
                 <FormHelperText
                   sx={{
                     fontWeight: 500,
@@ -246,10 +271,12 @@ const Form = ({
                   {...register("lead", {
                     required: true,
                   })}
-                > 
-                  <MenuItem value="63f9232a4aecb8b197fe2435">Jonathan Kim</MenuItem>
+                >
+                  <MenuItem value="63f9232a4aecb8b197fe2435">
+                    Jonathan Kim
+                  </MenuItem>
                 </Select>
-              </FormControl> */}
+              </FormControl>
               <FormControl>
                 <FormHelperText
                   sx={{

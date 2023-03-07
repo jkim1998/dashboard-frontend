@@ -32,6 +32,7 @@ import { ProjectCard, CustomButton, TicketCard } from "components";
 import { Error, Loading } from "../index";
 import { ProjectImage } from "assets";
 import FindUserWithID from "components/query/FindUserWithID";
+import FindProjectWithID from "components/query/FindProjectWithID";
 
 interface TicketDetailsProps {
   onClick: React.MouseEventHandler<HTMLDivElement>;
@@ -85,7 +86,9 @@ const TicketDetails: React.FC<TicketDetailsProps> = ({
   };
 
   const handleDeleteProject = () => {
-    const response = window.confirm("Are you sure you want to delete this Ticket?");
+    const response = window.confirm(
+      "Are you sure you want to delete this Ticket?"
+    );
     if (response) {
       mutate(
         {
@@ -126,7 +129,10 @@ const TicketDetails: React.FC<TicketDetailsProps> = ({
         >
           <Typography>id: {id}</Typography>
           <Typography>priority: {priority}</Typography>
-          <Typography>project#: {project} </Typography>
+          <Typography>
+            project#:
+            {typeof project === "string" ? FindProjectWithID(project) : ""}
+          </Typography>
           <Typography>
             creator:
             {typeof creator === "string" ? FindUserWithID(creator) : ""}

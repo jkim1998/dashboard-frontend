@@ -11,11 +11,12 @@ import {
   bgcolor,
 } from "@pankod/refine-mui";
 import { useNavigate } from "@pankod/refine-react-router-v6";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 import { ProjectCard, CustomButton } from "components";
 
 import { Error, Loading } from "../index";
+import { response } from "express";
 
 const ReadProjects = () => {
   const navigate = useNavigate();
@@ -52,6 +53,15 @@ const ReadProjects = () => {
         "",
     };
   }, [filters]);
+  // useEffect(() => {
+  //   const numProject = async () => {
+  //     const response = await fetch("http://localhost:8080/api/v1/projects");
+  //     const totalCount = response.headers.get("x-total-count");
+  //     console.log(totalCount);
+  //   };
+
+  //   numProject();
+  // }, []);
 
   if (isLoading) return <Loading />;
   if (isError) return <Error />;
