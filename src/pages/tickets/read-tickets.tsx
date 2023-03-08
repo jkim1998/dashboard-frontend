@@ -64,17 +64,17 @@ const ReadTickets = () => {
   if (isLoading) return <Loading />;
   if (isError) return <Error />;
 
-  const toggleDetail = () => {
-    setDetail(!detail);
-  };
-  const handleChangePage = (event: any, newPage: number) => {
+  const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event: any) => {
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
   const showDetail = ({
     id,
     title,
@@ -117,6 +117,7 @@ const ReadTickets = () => {
       }
     });
   }
+
   return (
     <>
       <Box
@@ -291,34 +292,36 @@ const ReadTickets = () => {
                 </TableRow>
               </TableHead>
             </Table>
-            {sortedData.map((ticket, index) => {
-              const num = index + 1;
-              return (
-                <Table key={ticket._id} width="100%">
-                  <TicketCard
-                    num={num}
-                    id={ticket._id}
-                    title={ticket.title}
-                    description={ticket.description}
-                    creator={ticket.creator}
-                    priority={ticket.priority}
-                    project={ticket.project}
-                    onClick={() =>
-                      showDetail({
-                        id: ticket._id,
-                        title: ticket.title,
-                        description: ticket.description,
-                        creator: ticket.creator,
-                        priority: ticket.priority,
-                        project: ticket.project,
-                      })
-                    }
-                  />
-                </Table>
-              );
-            })}
+            {sortedData
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((ticket, index) => {
+                const num = index + 1;
+                return (
+                  <Table key={ticket._id} width="100%">
+                    <TicketCard
+                      num={num}
+                      id={ticket._id}
+                      title={ticket.title}
+                      description={ticket.description}
+                      creator={ticket.creator}
+                      priority={ticket.priority}
+                      project={ticket.project}
+                      onClick={() =>
+                        showDetail({
+                          id: ticket._id,
+                          title: ticket.title,
+                          description: ticket.description,
+                          creator: ticket.creator,
+                          priority: ticket.priority,
+                          project: ticket.project,
+                        })
+                      }
+                    />
+                  </Table>
+                );
+              })}
             <TablePagination
-              rowsPerPageOptions={[5, 10, 25, 50, { label: "All", value: -1 }]}
+              rowsPerPageOptions={[5, 10, 25]}
               component="div"
               count={totalCount}
               rowsPerPage={rowsPerPage}

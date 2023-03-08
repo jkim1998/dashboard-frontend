@@ -24,7 +24,6 @@ export const CountUsers = () => {
     },
   });
   const userData = data?.data ?? [];
-  console.log("aaa:", userData);
   return <Typography fontWeight={700}>{userData.length}</Typography>;
 };
 

@@ -1,3 +1,4 @@
+import react, { useState } from "react";
 import {
   Box,
   Typography,
@@ -9,12 +10,26 @@ import {
   Select,
   MenuItem,
   Button,
+  Chip,
+  SelectChangeEvent,
 } from "@pankod/refine-mui";
 
 import { useNavigate } from "@pankod/refine-react-router-v6";
 import { FormProps } from "interfaces/common";
 import { useList } from "@pankod/refine-core";
 import CustomButton from "./CustomButton";
+
+interface Project {
+  _id: string;
+  title: string;
+  description: string;
+}
+
+interface User {
+  _id: string;
+  name: string;
+  email: string;
+}
 
 const Form = ({
   title,
@@ -28,9 +43,41 @@ const Form = ({
 }: FormProps) => {
   const navigate = useNavigate();
 
-  const { data, isLoading, isError } = useList({ resource: "projects" });
+  const {
+    data: projectData,
+    isLoading: loadingProject,
+    error: errorProject,
+  } = useList<Project>({ resource: "projects" });
 
-  const allProjects = data?.data ?? [];
+  const allProjects: Project[] = projectData?.data ?? [];
+
+  const {
+    data: userData,
+    isLoading: loadingUser,
+    error: errorUser,
+  } = useList<User>({ resource: "users" });
+
+  const allUsers: User[] = userData?.data ?? [];
+
+  const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
+
+  const handleSelectChange = (event: SelectChangeEvent<string[]>) => {
+    if (Array.isArray(event.target.value)) {
+      setSelectedUsers(
+        event.target.value.map((userId) => {
+          return allUsers.find((user) => user._id === userId) as User;
+        })
+      );
+    }
+    console.log("user:", selectedUsers);
+  };
+
+  const handleDelete = (userId: string) => {
+    setSelectedUsers((prevSelectedUsers) =>
+      prevSelectedUsers.filter((user) => user._id !== userId)
+    );
+  };
+
   return (
     <Box>
       <Typography fontSize={25} fontWeight={700} color="#11142d">
@@ -207,7 +254,7 @@ const Form = ({
                       required: true,
                     })}
                   >
-                    {allProjects.map((project) => (
+                    {allProjects.map((project: Project) => (
                       <MenuItem value={project._id}>{project.title}</MenuItem>
                     ))}
                   </Select>
@@ -289,13 +336,30 @@ const Form = ({
                 >
                   members
                 </FormHelperText>
-                <TextField
-                  fullWidth
-                  id="outlined-basic"
-                  color="info"
-                  variant="outlined"
-                  {...register("members", { required: false })}
-                />
+                <>
+                  <Select
+                    multiple
+                    value={selectedUsers.map((user) => user._id) as string[]}
+                    onChange={handleSelectChange}
+                    inputProps={{ "aria-label": "Without label" }}
+                  >
+                    {allUsers.map((user: User) => (
+                      <MenuItem key={user._id} value={user._id}>
+                        {user.name} ({user.email})
+                      </MenuItem>
+                    ))}
+                  </Select>
+
+                  <Box mt={2} gap={1}>
+                    {selectedUsers.map((user) => (
+                      <Chip
+                        key={user._id}
+                        label={`${user.name} (${user.email})`}
+                        onDelete={() => handleDelete(user._id)}
+                      />
+                    ))}
+                  </Box>
+                </>
               </FormControl>
               <FormControl>
                 <FormHelperText

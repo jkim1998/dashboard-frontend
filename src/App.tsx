@@ -39,6 +39,7 @@ import {
   UpdateProject,
   ReadTickets,
   CreateTicket,
+  UpdateTickets
 } from "./pages";
 
 const axiosInstance = axios.create();
@@ -61,7 +62,7 @@ function App() {
       const profileObj = credential ? parseJwt(credential) : null;
 
       if (profileObj) {
-        let url = "http://localhost:8080/api/v1/users"
+        let url = "http://localhost:8080/api/v1/users";
         // let url = "https://dashboard-server-aq1z.onrender.com/api/v1/users";
         const response = await fetch(url, {
           method: "POST",
@@ -157,6 +158,7 @@ function App() {
               name: "tickets",
               create: CreateTicket,
               list: ReadTickets,
+              edit: UpdateTickets,
               icon: <StarOutlineRounded />,
             },
             {

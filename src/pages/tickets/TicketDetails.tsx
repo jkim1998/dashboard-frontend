@@ -36,7 +36,7 @@ import FindProjectWithID from "components/query/FindProjectWithID";
 
 interface TicketDetailsProps {
   onClick: React.MouseEventHandler<HTMLDivElement>;
-  id?: string | undefined;
+  id?: string;
   title?: string | undefined;
   priority?: string | undefined;
   description?: string | undefined;
@@ -81,8 +81,8 @@ const TicketDetails: React.FC<TicketDetailsProps> = ({
   const myProfile = data?.data ?? [];
   const isCurrentUser = myProfile._id === creator;
 
-  const editTicket = () => {
-    navigate("/");
+  const editTicket = (ticketID: string) => {
+    navigate(`/tickets/edit/${ticketID}`);
   };
 
   const handleDeleteProject = () => {
@@ -97,9 +97,12 @@ const TicketDetails: React.FC<TicketDetailsProps> = ({
         },
         {
           onSuccess: () => {
-            // navigate("/");
-            console.log("successfully deleted ticket");
+            navigate("/tickets");
+            // console.log("successfully deleted ticket");
           },
+          onError: () => {
+            // console.log("error occured")
+          }
         }
       );
     }
@@ -147,7 +150,7 @@ const TicketDetails: React.FC<TicketDetailsProps> = ({
                 color="#FCFCFC"
                 // icon={dropdown ? <ArrowDropUp /> : <ArrowDropDown />}
                 handleClick={() => {
-                  editTicket();
+                  editTicket(id ? id : "");
                 }}
               />
               <CustomButton
@@ -167,7 +170,7 @@ const TicketDetails: React.FC<TicketDetailsProps> = ({
               color="#FCFCFC"
               // icon={dropdown ? <ArrowDropUp /> : <ArrowDropDown />}
               handleClick={() => {
-                editTicket();
+                editTicket(id ? id : "");
               }}
             />
           )}

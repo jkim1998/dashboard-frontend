@@ -18,6 +18,7 @@ import UpdateProject from "./projects/update-projects";
 //tickets
 import ReadTickets from "./tickets/read-tickets";
 import CreateTicket from "./tickets/create-ticket";
+import UpdateTickets from "./tickets/Update-tickets";
 
 export {
   Home,
@@ -34,4 +35,5 @@ export {
   UpdateProject,
   ReadTickets,
   CreateTicket,
+  UpdateTickets,
 };
