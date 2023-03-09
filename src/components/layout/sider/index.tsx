@@ -305,7 +305,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
       <>
         {dashboard}
         {items}
-        {logout}
+        {/* {logout} */}
       </>
     );
   };
@@ -435,3 +435,5 @@ export const Sider: typeof DefaultSider = ({ render }) => {
     </>
   );
 };
+
+export { Logout };

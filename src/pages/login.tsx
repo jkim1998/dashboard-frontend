@@ -14,7 +14,7 @@ import {
   Container,
 } from "@pankod/refine-mui";
 
-import { yariga } from "../assets";
+import { Icon } from "../assets";
 
 import { CredentialResponse } from "../interfaces/google";
 
@@ -112,7 +112,7 @@ export const Login: React.FC = () => {
       }}
     >
       <div>
-        <img src={yariga} alt="Yariga Logo" />
+        <img src={Icon} alt="Logo" width={400}/>
       </div>
       <Box borderRadius="15px" width={600} padding="20px">
         <form

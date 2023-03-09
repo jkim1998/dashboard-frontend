@@ -44,6 +44,8 @@ const TicketCard = ({
   id,
   title,
   description,
+  type,
+  status,
   creator,
   priority,
   project,

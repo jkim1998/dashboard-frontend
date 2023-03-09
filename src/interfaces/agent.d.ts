@@ -15,6 +15,8 @@ export interface TicketCardProp {
   id?: BaseKey | undefined;
   title: string;
   description: string;
+  type: string;
+  status: string;
   creator?: string;
   priority: string;
   project: string;

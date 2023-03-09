@@ -221,6 +221,33 @@ const Form = ({
                       color: "#11142d",
                     }}
                   >
+                    Type
+                  </FormHelperText>
+                  <Select
+                    variant="outlined"
+                    color="info"
+                    displayEmpty
+                    required
+                    inputProps={{ "aria-label": "Without label" }}
+                    defaultValue=""
+                    {...register("type", {
+                      required: true,
+                    })}
+                  >
+                    <MenuItem value="uiux">UI/UX</MenuItem>
+                    <MenuItem value="function">Function</MenuItem>
+                    <MenuItem value="others">Others</MenuItem>
+                  </Select>
+                </FormControl>
+                <FormControl sx={{ flex: 1 }}>
+                  <FormHelperText
+                    sx={{
+                      fontWeight: 500,
+                      margin: "10px 0",
+                      fontSize: 16,
+                      color: "#11142d",
+                    }}
+                  >
                     Priority
                   </FormHelperText>
                   <Select
@@ -239,10 +266,43 @@ const Form = ({
                     <MenuItem value="urgent">Urgent</MenuItem>
                   </Select>
                 </FormControl>
-              </Stack>
-
-              <Stack direction="row" gap={4}>
                 <FormControl sx={{ flex: 1 }}>
+                  <FormHelperText
+                    sx={{
+                      fontWeight: 500,
+                      margin: "10px 0",
+                      fontSize: 16,
+                      color: "#11142d",
+                    }}
+                  >
+                    Status
+                  </FormHelperText>
+                  <Select
+                    variant="outlined"
+                    color="info"
+                    displayEmpty
+                    required
+                    inputProps={{ "aria-label": "Without label" }}
+                    defaultValue="open"
+                    {...register("status", {
+                      required: true,
+                    })}
+                  >
+                    <MenuItem value="open">In progress</MenuItem>
+                    <MenuItem value="close">Completed</MenuItem>
+                  </Select>
+                </FormControl>
+                <FormControl sx={{ flex: 1 }}>
+                  <FormHelperText
+                    sx={{
+                      fontWeight: 500,
+                      margin: "10px 0",
+                      fontSize: 16,
+                      color: "#11142d",
+                    }}
+                  >
+                    Project
+                  </FormHelperText>
                   <Select
                     variant="outlined"
                     color="info"
@@ -478,7 +538,27 @@ const Form = ({
                     {...register("email", { required: true })}
                   />
                 </FormControl>
-
+                <FormControl>
+                  <FormHelperText
+                    sx={{
+                      fontWeight: 500,
+                      margin: "10px 0",
+                      fontSize: 16,
+                      color: "#11142d",
+                      textTransform: "capitalize",
+                    }}
+                  >
+                    Password
+                  </FormHelperText>
+                  <TextField
+                    fullWidth
+                    required
+                    id="outlined-basic"
+                    color="info"
+                    variant="outlined"
+                    {...register("password", { required: true })}
+                  />
+                </FormControl>
                 <FormControl>
                   <FormHelperText
                     sx={{

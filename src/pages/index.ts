@@ -1,13 +1,15 @@
 import Home from "./home";
+import Message from "./Message";
 import { Login } from "./login";
 import MyProfile from "./my-profile";
 import Error from "./error";
 import Loading from "./loading";
 
-//employee
+//user
 import CreateEmployee from "./employees/create-employees";
 import ReadEmployees from "./employees/read-employees";
 import ReadEmployeeProfile from "./employees/read-employees-detail";
+import UpdateEmployees from "./employees/Update-employees";
 
 //projects
 import CreateProject from "./projects/create-project";
@@ -22,6 +24,7 @@ import UpdateTickets from "./tickets/Update-tickets";
 
 export {
   Home,
+  Message,
   Login,
   Error,
   Loading,
@@ -29,6 +32,7 @@ export {
   CreateEmployee,
   ReadEmployees,
   ReadEmployeeProfile,
+  UpdateEmployees,
   CreateProject,
   ReadProject,
   ReadProjectDetails,

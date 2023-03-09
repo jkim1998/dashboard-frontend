@@ -100,9 +100,11 @@ const ProjectTicket = () => {
                   key={ticket._id}
                   title={ticket.title}
                   description={ticket.description}
+                  type={ticket.type}
+                  status={ticket.status}
                   creator={ticket.creator}
                   priority={ticket.priority}
-                    project={ticket.project}
+                  project={ticket.project}
                 />
               </>
             ))}

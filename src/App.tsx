@@ -29,17 +29,19 @@ import {
 import {
   Home,
   Login,
+  Message,
   MyProfile,
   CreateEmployee,
   ReadEmployees,
   ReadEmployeeProfile,
+  UpdateEmployees,
   CreateProject,
   ReadProject,
   ReadProjectDetails,
   UpdateProject,
   ReadTickets,
   CreateTicket,
-  UpdateTickets
+  UpdateTickets,
 } from "./pages";
 
 const axiosInstance = axios.create();
@@ -148,10 +150,11 @@ function App() {
               icon: <VillaOutlined />,
             },
             {
-              name: "employees",
+              name: "users",
               create: CreateEmployee,
               list: ReadEmployees,
               show: ReadEmployeeProfile,
+              edit: UpdateEmployees,
               icon: <PeopleAltOutlined />,
             },
             {
@@ -163,7 +166,7 @@ function App() {
             },
             {
               name: "messages",
-              list: Home,
+              list: Message,
               icon: <ChatBubbleOutline />,
             },
             {

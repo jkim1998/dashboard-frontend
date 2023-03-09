@@ -1,4 +1,5 @@
 import { EmailOutlined, LocationCity, Phone, Place } from "@mui/icons-material";
+import CodeIcon from '@mui/icons-material/Code';
 import { useGetIdentity } from "@pankod/refine-core";
 import { Box, Stack, Typography } from "@pankod/refine-mui";
 import { Link } from "@pankod/refine-react-router-v6";
@@ -88,10 +89,16 @@ const AgentCard = ({
             icon={<EmailOutlined sx={{ color: "#808191" }} />}
             name={email}
           />
-          <InfoBar icon={<Place sx={{ color: "#808191" }} />} name={location} />
-          <InfoBar icon={<Phone sx={{ color: "#808191" }} />} name={phone} />
           <InfoBar
-            icon={<LocationCity sx={{ color: "#808191" }} />}
+            icon={<Phone sx={{ color: "#808191" }} />}
+            name={phone ? phone : "private"}
+          />
+          <InfoBar
+            icon={<Place sx={{ color: "#808191" }} />}
+            name={location ? location : "private"}
+          />
+          <InfoBar
+            icon={<CodeIcon sx={{ color: "#808191" }} />}
             name={`${numProject} Projects`}
           />
         </Stack>

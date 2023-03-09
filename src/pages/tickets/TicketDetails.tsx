@@ -40,6 +40,8 @@ interface TicketDetailsProps {
   title?: string | undefined;
   priority?: string | undefined;
   description?: string | undefined;
+  type?: string | undefined;
+  status?: string | undefined;
   creator?: string | undefined;
   project?: string | undefined;
   screenshot?: string | undefined;
@@ -65,6 +67,8 @@ const TicketDetails: React.FC<TicketDetailsProps> = ({
   id,
   title,
   description,
+  type,
+  status,
   creator,
   priority,
   project,
@@ -102,7 +106,7 @@ const TicketDetails: React.FC<TicketDetailsProps> = ({
           },
           onError: () => {
             // console.log("error occured")
-          }
+          },
         }
       );
     }
@@ -132,6 +136,7 @@ const TicketDetails: React.FC<TicketDetailsProps> = ({
         >
           <Typography>id: {id}</Typography>
           <Typography>priority: {priority}</Typography>
+          <Typography>type: {type}</Typography>
           <Typography>
             project#:
             {typeof project === "string" ? FindProjectWithID(project) : ""}

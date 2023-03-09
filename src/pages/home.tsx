@@ -9,8 +9,19 @@ import {
 } from "components";
 
 import { Projects, CountUsers, Tickets } from "../components/query";
-
+interface Project {
+  _id: string;
+  title: string;
+  description: string;
+}
 const Home = () => {
+  const {
+    data: aaa,
+    isLoading: loadingProject,
+    error: errorProject,
+  } = useList<Project>({ resource: "projects" });
+
+  const allProjects: Project[] = aaa?.data ?? [];
   const { data, isLoading, isError } = useList({
     resource: "projects",
     config: {
@@ -164,7 +175,7 @@ const Home = () => {
               projectType={property.projectType}
               members={property.members}
               photo={property.photo}
-              lead={property.lead.name}
+              lead={property.lead}
             />
           ))}
         </Box>

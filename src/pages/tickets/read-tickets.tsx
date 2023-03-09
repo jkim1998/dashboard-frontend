@@ -34,6 +34,8 @@ interface TicketDetailsProps {
   id: string;
   title: string;
   description: string;
+  type: string;
+  status: string;
   creator: string;
   priority: string;
   project: string;
@@ -50,7 +52,6 @@ interface User {
 const ReadTickets = () => {
   const navigate = useNavigate();
   const [ticketID, setTicketID] = useState<string[] | undefined>(undefined);
-  const [userID, setUserID] = useState();
   const { data, isLoading, isError } = useList({ resource: "tickets" });
   const [detail, setDetail] = useState(false);
   const [page, setPage] = useState(0);
@@ -61,6 +62,7 @@ const ReadTickets = () => {
   const ticketData = data?.data ?? [];
   const totalCount = ticketData.length;
 
+  console.log(ticketData);
   if (isLoading) return <Loading />;
   if (isError) return <Error />;
 
@@ -79,13 +81,22 @@ const ReadTickets = () => {
     id,
     title,
     description,
+    type,
+    status,
     creator,
     priority,
     project,
   }: TicketDetailsProps) => {
-    const ticketArr = [id, title, description, creator, priority, project].map(
-      String
-    );
+    const ticketArr = [
+      id,
+      title,
+      description,
+      type,
+      status,
+      creator,
+      priority,
+      project,
+    ].map(String);
     setTicketID(ticketArr);
     setDetail(true);
   };
@@ -93,7 +104,7 @@ const ReadTickets = () => {
   const hideDetail = () => {
     setDetail(false);
   };
-
+  console.log(ticketID);
   // console.log("qqqqq:", ticketData[0].creator);
   // console.log("asdfa:", totalCount);
   const handleSort = (column: string) => {
@@ -303,6 +314,8 @@ const ReadTickets = () => {
                       id={ticket._id}
                       title={ticket.title}
                       description={ticket.description}
+                      type={ticket.type}
+                      status={ticket.status}
                       creator={ticket.creator}
                       priority={ticket.priority}
                       project={ticket.project}
@@ -310,6 +323,8 @@ const ReadTickets = () => {
                         showDetail({
                           id: ticket._id,
                           title: ticket.title,
+                          type: ticket.type,
+                          status: ticket.status,
                           description: ticket.description,
                           creator: ticket.creator,
                           priority: ticket.priority,
@@ -339,9 +354,11 @@ const ReadTickets = () => {
             id={ticketID?.[0]}
             title={ticketID?.[1]}
             description={ticketID?.[2]}
-            creator={ticketID?.[3]}
-            priority={ticketID?.[4]}
-            project={ticketID?.[5]}
+            type={ticketID?.[3]}
+            status={ticketID?.[4]}
+            creator={ticketID?.[5]}
+            priority={ticketID?.[6]}
+            project={ticketID?.[7]}
           />
         )}
       </Box>

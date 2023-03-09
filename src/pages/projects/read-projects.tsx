@@ -165,13 +165,24 @@ const ReadProjects = () => {
           </Box>
         </Stack>
       </Box>
-      <Box display="flex" flexDirection="column" height="80%">
+      <Box
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        maxHeight="100%"
+      >
         <Box
-          mt="20px"
+          my="20px"
           sx={{
-            display: "flex",
-            flexWrap: "wrap",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
             gap: 3,
+            "@media (max-width: 768px)": {
+              gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+            },
+            "@media (max-width: 480px)": {
+              gridTemplateColumns: "repeat(auto-fit, minmax(100px, 1fr))",
+            },
           }}
         >
           {allProjects?.map((project) => (

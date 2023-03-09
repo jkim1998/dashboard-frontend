@@ -1,5 +1,5 @@
 import { useList } from "@pankod/refine-core";
-import { Box, Typography } from "@pankod/refine-mui";
+import { Box, Typography, Stack } from "@pankod/refine-mui";
 import { useNavigate } from "@pankod/refine-react-router-v6";
 
 import { AgentCard, CustomButton } from "components";
@@ -17,9 +17,17 @@ const Agents = () => {
   return (
     <>
       <Box>
-        <Typography fontSize={25} fontWeight={700} color="#11142d">
-          Employee List
-        </Typography>
+        <Stack direction="row" justifyContent="space-between">
+          <Typography fontSize={25} fontWeight={700} color="#11142d">
+            Employee List
+          </Typography>
+          <CustomButton
+            title="Create User"
+            handleClick={() => navigate("/users/create")}
+            backgroundColor="#475BE8"
+            color="#FCFCFC"
+          />
+        </Stack>
 
         <Box
           mt="20px"
@@ -43,12 +51,6 @@ const Agents = () => {
             />
           ))}
         </Box>
-        <CustomButton
-          title="Create User"
-          handleClick={() => navigate("/users/create")}
-          backgroundColor="#475BE8"
-          color="#FCFCFC"
-        />
       </Box>
     </>
   );

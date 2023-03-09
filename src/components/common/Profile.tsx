@@ -21,9 +21,20 @@ const Profile = ({
   location,
 }: ProfileProps) => (
   <Box>
-    <Typography fontSize={25} fontWeight={700} color="#11142D">
-      {type} Profile
-    </Typography>
+    <Stack direction="row" justifyContent="space-between">
+      <Typography fontSize={25} fontWeight={700} color="#11142D">
+        {type} Profile
+      </Typography>
+      <CustomButton
+        title={"edit"}
+        backgroundColor={"#d42e2e"}
+        color="#FCFCFC"
+        // icon={dropdown ? <ArrowDropUp /> : <ArrowDropDown />}
+        handleClick={() => {
+          // editTicket();
+        }}
+      />
+    </Stack>
 
     <Box mt="20px" borderRadius="15px" padding="20px" bgcolor="#FCFCFC">
       <Box
@@ -32,17 +43,7 @@ const Profile = ({
         alignItems="flex-end"
         width="100%"
         bgcolor="blue"
-      >
-        <CustomButton
-          title={"edit"}
-          backgroundColor={"#d42e2e"}
-          color="#FCFCFC"
-          // icon={dropdown ? <ArrowDropUp /> : <ArrowDropDown />}
-          handleClick={() => {
-            // editTicket();
-          }}
-        />
-      </Box>
+      ></Box>
       <Box
         sx={{
           display: "flex",
