@@ -83,34 +83,21 @@ function App() {
     }: LoginParams) => {
       if (credential) {
         // Login with credential logic
-        const profileObj = parseJwt(credential);
+        const profileObj = credential ? parseJwt(credential) : null;
+
         if (profileObj) {
-          let url = "http://localhost:8080/api/v1/users";
-          const response = await fetch(url, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              name: profileObj.name,
-              email: profileObj.email,
+          localStorage.setItem(
+            "user",
+            JSON.stringify({
+              ...profileObj,
               avatar: profileObj.picture,
-            }),
-          });
-          const data = await response.json();
-          if (response.status === 200) {
-            localStorage.setItem(
-              "user",
-              JSON.stringify({
-                ...profileObj,
-                avatar: profileObj.picture,
-                userid: data._id,
-              })
-            );
-            localStorage.setItem("token", `${credential}`);
-            return Promise.resolve();
-          } else {
-            return Promise.reject();
-          }
+            })
+          );
         }
+
+        localStorage.setItem("token", `${credential}`);
+
+        return Promise.resolve();
       } else if (email && password) {
         // Login with email/password logic
         const url = `http://localhost:8080/api/v1/users?email=${email}`;

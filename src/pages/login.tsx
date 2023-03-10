@@ -28,7 +28,7 @@ export const Login: React.FC = () => {
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       const codeParam = urlParams.get("code");
-      console.log(codeParam);
+      // console.log(codeParam);
       if (typeof window === "undefined" || !window.google || !divRef.current) {
         return;
       }
@@ -111,96 +111,22 @@ export const Login: React.FC = () => {
         width: "100vw",
       }}
     >
-      <AuthPage type="login"/>
-      {/* <AuthPage type="register"/> */}
-      {/* <AuthPage type="forgotPassword"/> */}
-      {/* <div>
-        <img src={Icon} alt="Logo" width={400}/>
-      </div>
-      <Box borderRadius="15px" width={600} padding="20px">
-        <form
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Stack width="100%" direction="column" gap={2}>
-            <FormHelperText
-              sx={{
-                width: "100%",
-                fontWeight: 500,
-                margin: "10px 0",
-                fontSize: 16,
-                color: "#11142d",
-                textTransform: "capitalize",
-              }}
-            >
-              Email
-            </FormHelperText>
-            <TextField
-              required
-              id="outlined-basic"
-              color="info"
-              variant="outlined"
-            />
-          </Stack>
-          <Stack width="100%" direction="column" gap={2}>
-            <FormHelperText
-              sx={{
-                fontWeight: 500,
-                margin: "10px 0",
-                fontSize: 16,
-                color: "#11142d",
-                textTransform: "capitalize",
-              }}
-            >
-              password
-            </FormHelperText>
-            <TextField
-              fullWidth
-              required
-              id="outlined-basic"
-              color="info"
-              variant="outlined"
-            />
-          </Stack>
-          <Typography
-            fontSize={14}
-            color="#808191"
-            sx={{ wordBreak: "break-all" }}
-          ></Typography>
-        </form>
-      </Box> */}
-
+      <AuthPage type="login" />
       <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
         borderRadius="15px"
-        width={600}
-        padding="20px"
+        width={300}
+        padding="10px"
         marginTop={5}
-        bgcolor="green"
+        gap={2}
       >
-        <Stack
-          display="flex"
-          flexDirection="row"
-          justifyContent="center"
-          alignItems="center"
-          paddingY={5}
-        >
-          <GoogleLogin />
-          <GithubLogin />
-        </Stack>
-        <Stack
-          display="flex"
-          flexDirection="row"
-          justifyContent="center"
-          alignItems="center"
-          paddingY={5}
-        >
-          <TestAdmin />
-          <TestUser />
-        </Stack>
+        <GoogleLogin />
+        {/* <GithubLogin /> */}
+        <TestAdmin />
+        <TestUser />
       </Box>
     </Box>
   );
