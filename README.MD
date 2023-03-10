@@ -26,16 +26,12 @@ url: https://dashboard-server-aq1z.onrender.com | http://localhost:8080 (npm sta
 ## client
 # must
 
-    -navbar
-        hover to toggle dropdown menu for profile, log out button
-
     -home
         design
 
     -login
         create account
-            email password 
-            return error if email exists 
+            email password (how to pass email from request not auth)
         sign in with github, other SSO
 
     -tickets 
@@ -55,8 +51,8 @@ url: https://dashboard-server-aq1z.onrender.com | http://localhost:8080 (npm sta
 
     -projects    
         Create/Update
-            tag, member
-                array in form input
+            member
+                not being passed
 
     -user profile 
         Update

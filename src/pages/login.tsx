@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useLogin } from "@pankod/refine-core";
+import { useLogin, AuthPage, useNavigation } from "@pankod/refine-core";
 import {
   Box,
   Typography,
@@ -111,7 +111,10 @@ export const Login: React.FC = () => {
         width: "100vw",
       }}
     >
-      <div>
+      <AuthPage type="login"/>
+      {/* <AuthPage type="register"/> */}
+      {/* <AuthPage type="forgotPassword"/> */}
+      {/* <div>
         <img src={Icon} alt="Logo" width={400}/>
       </div>
       <Box borderRadius="15px" width={600} padding="20px">
@@ -169,7 +172,7 @@ export const Login: React.FC = () => {
             sx={{ wordBreak: "break-all" }}
           ></Typography>
         </form>
-      </Box>
+      </Box> */}
 
       <Box
         borderRadius="15px"

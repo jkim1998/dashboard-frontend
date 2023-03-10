@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { Refine, AuthProvider } from "@pankod/refine-core";
+import { Refine, AuthProvider, AuthPage } from "@pankod/refine-core";
 import {
   notificationProvider,
   RefineSnackbarProvider,
@@ -43,7 +43,20 @@ import {
   CreateTicket,
   UpdateTickets,
 } from "./pages";
-
+interface User {
+  name: string;
+  email: string;
+  password: string;
+  avatar: string;
+  userid: string;
+}
+interface LoginParams {
+  email?: string;
+  password?: string;
+  remember?: boolean;
+  providerName?: string;
+  credential?: string;
+}
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
   const token = localStorage.getItem("token");
@@ -59,43 +72,210 @@ axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
 });
 
 function App() {
+  const [error, setError] = useState("");
   const authProvider: AuthProvider = {
-    login: async ({ credential }: CredentialResponse) => {
-      const profileObj = credential ? parseJwt(credential) : null;
-
-      if (profileObj) {
-        let url = "http://localhost:8080/api/v1/users";
-        // let url = "https://dashboard-server-aq1z.onrender.com/api/v1/users";
-        const response = await fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: profileObj.name,
-            email: profileObj.email,
-            avatar: profileObj.picture,
-          }),
-        });
-
-        const data = await response.json();
-
-        if (response.status === 200) {
-          localStorage.setItem(
-            "user",
-            JSON.stringify({
-              ...profileObj,
+    login: async ({
+      email,
+      password,
+      remember,
+      providerName,
+      credential,
+    }: LoginParams) => {
+      if (credential) {
+        // Login with credential logic
+        const profileObj = parseJwt(credential);
+        if (profileObj) {
+          let url = "http://localhost:8080/api/v1/users";
+          const response = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: profileObj.name,
+              email: profileObj.email,
               avatar: profileObj.picture,
-              userid: data._id,
-            })
-          );
+            }),
+          });
+          const data = await response.json();
+          if (response.status === 200) {
+            localStorage.setItem(
+              "user",
+              JSON.stringify({
+                ...profileObj,
+                avatar: profileObj.picture,
+                userid: data._id,
+              })
+            );
+            localStorage.setItem("token", `${credential}`);
+            return Promise.resolve();
+          } else {
+            return Promise.reject();
+          }
+        }
+      } else if (email && password) {
+        // Login with email/password logic
+        const url = `http://localhost:8080/api/v1/users?email=${email}`;
+        const response = await fetch(url, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+        if (response.status === 200) {
+          const users = await response.json();
+          const user = users.find((user: User) => user.email === email);
+          if (user) {
+            if (user.password === password) {
+              localStorage.setItem(
+                "user",
+                JSON.stringify({
+                  name: user.name,
+                  email: user.email,
+                  avatar: user.avatar,
+                  userid: user._id,
+                })
+              );
+              localStorage.setItem("token", `${user.token}`);
+              return Promise.resolve();
+            } else {
+              setError("Incorrect Password");
+              console.log(error);
+              return Promise.reject();
+            }
+          } else {
+            setError("User not found");
+            console.log(error);
+            return Promise.reject();
+          }
         } else {
+          const error = await response.json();
+          console.log(
+            `User with email ${email} does not exist in the collection`
+          );
           return Promise.reject();
         }
+      } else {
+        return Promise.reject("No login credentials provided");
       }
-
-      localStorage.setItem("token", `${credential}`);
-
-      return Promise.resolve();
     },
+    // login: async ({ email, password, remember, providerName }) => {
+    //   const url = `http://localhost:8080/api/v1/users?email=${email}`;
+    //   const response = await fetch(url, {
+    //     method: "GET",
+    //     headers: { "Content-Type": "application/json" },
+    //   });
+
+    //   if (response.status === 200) {
+    //     // const user = await response.json();
+    //     const users = await response.json();
+    //     const user = users.find((user: User) => user.email === email);
+    //     if (user) {
+    //       if (user.password === password) {
+    //         localStorage.setItem(
+    //           "user",
+    //           JSON.stringify({
+    //             name: user.name,
+    //             email: user.email,
+    //             avatar: user.avatar,
+    //             userid: user._id,
+    //           })
+    //         );
+    //         localStorage.setItem("token", `${user.token}`);
+    //         return Promise.resolve();
+    //       } else {
+    //         setError("Incorrect Password");
+    //         console.log(error);
+    //         return Promise.reject();
+    //       }
+    //     } else {
+    //       setError("User not found");
+    //       console.log(error);
+    //       return Promise.reject();
+    //     }
+    //   } else {
+    //     const error = await response.json();
+    //     console.log(
+    //       `User with email ${email} does not exist in the collection`
+    //     );
+
+    //     return Promise.reject();
+    //   }
+    // },
+    register: async ({ email, password, providerName }) => {
+      let url;
+      let body;
+
+      // switch (providerName) {
+      //   case "google":
+      //     url = "http://localhost:8080/api/v1/users";
+      //     body = JSON.stringify({ access_token: password });
+      //     break;
+      //   case "github":
+      //     url = "http://localhost:8080/api/v1/users";
+      //     body = JSON.stringify({ access_token: password });
+      //     break;
+      //   default:
+      url = "http://localhost:8080/api/v1/users";
+      body = JSON.stringify({ email, password });
+      // }
+
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: body,
+      });
+
+      const data = await response.json();
+      if (response.status === 200) {
+        console.log("4");
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            name: "name",
+            email: data.email,
+            userid: data._id,
+          })
+        );
+        localStorage.setItem("token", `${data.token}`);
+        return Promise.resolve();
+      } else {
+        console.log("failed to register");
+        return Promise.reject();
+      }
+    },
+    // login: async ({ credential }: CredentialResponse) => {
+    //   const profileObj = credential ? parseJwt(credential) : null;
+
+    //   if (profileObj) {
+    //     let url = "http://localhost:8080/api/v1/users";
+    //     // let url = "https://dashboard-server-aq1z.onrender.com/api/v1/users";
+    //     const response = await fetch(url, {
+    //       method: "POST",
+    //       headers: { "Content-Type": "application/json" },
+    //       body: JSON.stringify({
+    //         name: profileObj.name,
+    //         email: profileObj.email,
+    //         avatar: profileObj.picture,
+    //       }),
+    //     });
+
+    //     const data = await response.json();
+
+    //     if (response.status === 200) {
+    //       localStorage.setItem(
+    //         "user",
+    //         JSON.stringify({
+    //           ...profileObj,
+    //           avatar: profileObj.picture,
+    //           userid: data._id,
+    //         })
+    //       );
+    //     } else {
+    //       return Promise.reject();
+    //     }
+    //   }
+
+    //   localStorage.setItem("token", `${credential}`);
+
+    //   return Promise.resolve();
+    // },
     logout: () => {
       const token = localStorage.getItem("token");
 
@@ -180,7 +360,21 @@ function App() {
           Sider={Sider}
           Layout={Layout}
           Header={Header}
-          routerProvider={routerProvider}
+          // routerProvider={routerProvider}
+          routerProvider={{
+            ...routerProvider,
+            routes: [
+              { path: "/", element: <Login /> },
+              {
+                path: "/register",
+                element: <AuthPage type="register" />,
+              },
+              {
+                path: "/forgot-password",
+                element: <AuthPage type="forgotPassword" />,
+              },
+            ],
+          }}
           authProvider={authProvider}
           LoginPage={Login}
           DashboardPage={Home}
