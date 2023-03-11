@@ -27,11 +27,10 @@ url: https://dashboard-server-aq1z.onrender.com | http://localhost:8080 (npm sta
 # must
 
     -home
-        design
+        dynamic data mapping
 
     -login
         create account
-            email password (how to pass email from request not auth)
         sign in with github, other SSO
 
     -tickets 
@@ -44,7 +43,6 @@ url: https://dashboard-server-aq1z.onrender.com | http://localhost:8080 (npm sta
         design
 
     -employee
-        Create
         Update
         Delete
         design 
@@ -84,6 +82,7 @@ url: https://dashboard-server-aq1z.onrender.com | http://localhost:8080 (npm sta
 
 ## server
     queries clean up
+    password hashing 
 
 # must 
     CRUD for each pages 

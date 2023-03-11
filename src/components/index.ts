@@ -5,12 +5,10 @@ import CustomButton from "./common/CustomButton";
 import Banner from "./common/Banner";
 
 // charts
-import PieChart from "./charts/PieChart";
-import PropertyReferrals from "./charts/PropertyReferrals";
-import TotalRevenue from "./charts/TotalRevenue";
+import PieChart from "./data/PieChart";
 
 // agent
-import AgentCard from "./agent/AgentCard";
+import UserCard from "./common/UserCard";
 
 // home
 import TopAgent from "./home/TopAgent";
@@ -23,9 +21,7 @@ export {
   ProjectCard,
   CustomButton,
   PieChart,
-  PropertyReferrals,
-  TotalRevenue,
-  AgentCard,
+  UserCard,
   TopAgent,
   TicketCard,
   Banner,

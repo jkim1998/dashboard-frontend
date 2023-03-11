@@ -2,8 +2,11 @@ import ReactApexChart from "react-apexcharts";
 import { Box, Typography, Stack } from "@pankod/refine-mui";
 import { ArrowCircleUpRounded } from "@mui/icons-material";
 
-import { TotalRevenueOptions, TotalRevenueSeries } from "./chart.config";
-import { Projects, CountUsers, Tickets } from "../../components/query";
+import {
+  GraphOption,
+  TotalMonthlyTickets,
+} from "../../components/data/chart.config";
+import { Tickets } from "../../components/query";
 
 const TotalRevenue = () => {
   return (
@@ -38,10 +41,10 @@ const TotalRevenue = () => {
       </Stack>
 
       <ReactApexChart
-        series={TotalRevenueSeries}
+        series={TotalMonthlyTickets}
         type="bar"
         height={310}
-        options={TotalRevenueOptions}
+        options={GraphOption}
       />
     </Box>
   );

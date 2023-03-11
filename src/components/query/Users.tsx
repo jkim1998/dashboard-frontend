@@ -1,12 +1,5 @@
 import { useList } from "@pankod/refine-core";
-import { Typography, Box, Stack } from "@pankod/refine-mui";
-import {
-  PieChart,
-  PropertyReferrals,
-  TotalRevenue,
-  ProjectCard,
-} from "components";
-import { Banner } from "../../components";
+import { Typography } from "@pankod/refine-mui";
 export const CountUsers = () => {
   const { data, isLoading, isError } = useList({
     resource: "projects",

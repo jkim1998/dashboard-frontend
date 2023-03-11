@@ -215,7 +215,7 @@ const ReadProjects = () => {
           flexWrap="wrap"
         >
           <CustomButton
-            title="Previous"
+            title="<"
             handleClick={() => setCurrent((prev) => prev - 1)}
             backgroundColor="#475be8"
             color="#fcfcfc"
@@ -232,7 +232,7 @@ const ReadProjects = () => {
             </strong>
           </Box>
           <CustomButton
-            title="Next"
+            title=">"
             handleClick={() => setCurrent((prev) => prev + 1)}
             backgroundColor="#475be8"
             color="#fcfcfc"

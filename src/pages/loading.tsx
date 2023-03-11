@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, CircularProgress } from "@pankod/refine-mui";
 
 const Loading = () => {

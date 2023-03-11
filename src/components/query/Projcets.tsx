@@ -1,11 +1,5 @@
 import { useList } from "@pankod/refine-core";
-import { Typography, Box, Stack } from "@pankod/refine-mui";
-import {
-  PieChart,
-  PropertyReferrals,
-  TotalRevenue,
-  ProjectCard,
-} from "components";
+import { Typography } from "@pankod/refine-mui";
 import { Banner } from "../../components";
 const Projects = () => {
   const { data, isLoading, isError } = useList({

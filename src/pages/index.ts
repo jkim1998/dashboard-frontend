@@ -1,9 +1,9 @@
-import Home from "./home";
+import Home from "./home/Home";
 import Message from "./Message";
-import { Login } from "./login";
+import { Login } from "./Login";
 import MyProfile from "./my-profile";
-import Error from "./error";
-import Loading from "./loading";
+import Error from "./Error";
+import Loading from "./Loading";
 
 //user
 import CreateEmployee from "./employees/create-employees";

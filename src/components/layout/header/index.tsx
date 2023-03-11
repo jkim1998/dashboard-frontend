@@ -8,15 +8,11 @@ import {
   Typography,
   Avatar,
   Button,
-  Popover,
-  List,
-  ListItem,
-  ListItemButton,
   Box,
 } from "@pankod/refine-mui";
-import { useParams, useNavigate } from "@pankod/refine-react-router-v6";
+import { useNavigate } from "@pankod/refine-react-router-v6";
 import { DarkModeOutlined, LightModeOutlined } from "@mui/icons-material";
-
+import { Anonymous } from "assets";
 import { ColorModeContext } from "contexts";
 
 export const Header: React.FC = () => {
@@ -65,29 +61,34 @@ export const Header: React.FC = () => {
               alignItems="center"
               justifyContent="center"
             >
-              {user?.name ? (
-                <Typography variant="subtitle2">{user?.name}</Typography>
-              ) : null}
+              <Typography variant="subtitle2">
+                {user?.name ? user.name : "Anonymous user"}
+              </Typography>
               {user?.avatar ? (
                 <Avatar src={user?.avatar} alt={user?.name} />
-              ) : null}
+              ) : (
+                null
+              )}
             </Stack>
             {menu && (
               <Box
                 sx={{
-                  bgcolor: "yellow",
+                  bgcolor: "white",
                   position: "absolute",
+                  display: "flex",
+                  flexDirection: "column",
                   padding: "5px",
                   zIndex: 1,
                   width: "100%",
                   left: 0,
+                  border: "1px solid black",
                 }}
               >
                 <Button onClick={() => navigate("/my-profile")}>
                   My Profile
                 </Button>
-                <Typography>hello</Typography>
-                <Typography>hello</Typography>
+                <Button>hello</Button>
+                <Button>hello</Button>
                 <Button onClick={() => mutateLogout()}>Logout</Button>
               </Box>
             )}

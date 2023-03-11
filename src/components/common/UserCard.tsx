@@ -4,7 +4,7 @@ import { useGetIdentity } from "@pankod/refine-core";
 import { Box, Stack, Typography } from "@pankod/refine-mui";
 import { Link } from "@pankod/refine-react-router-v6";
 
-import { AgentCardProp, InfoBarProps } from "interfaces/agent";
+import { UserCardProp, InfoBarProps } from "interfaces/agent";
 
 function checkImage(url: any) {
   const img = new Image();
@@ -21,7 +21,7 @@ const InfoBar = ({ icon, name }: InfoBarProps) => (
   </Stack>
 );
 
-const AgentCard = ({
+const UserCard = ({
   id,
   name,
   email,
@@ -29,7 +29,8 @@ const AgentCard = ({
   location,
   avatar,
   numProject,
-}: AgentCardProp) => {
+  role
+}: UserCardProp) => {
   const { data: currentUser } = useGetIdentity();
 
   const generateLink = () => {
@@ -49,7 +50,8 @@ const AgentCard = ({
         gap: "20px",
         padding: "20px",
         "&:hover": {
-          boxShadow: "0 22px 45px 2px rgba(176,176,176,0.1)",
+          // boxShadow: "0 22px 45px 2px rgba(176,176,176,0.1)",
+          background: "#99ccff"
         },
       }}
     >
@@ -57,7 +59,7 @@ const AgentCard = ({
         src={
           checkImage(avatar)
             ? avatar
-            : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
+            : ""
         }
         alt="user"
         width={90}
@@ -75,7 +77,7 @@ const AgentCard = ({
             {name}
           </Typography>
           <Typography fontSize={14} color="#808191">
-            Developer
+            {role ? role : "user"}
           </Typography>
         </Stack>
         <Stack
@@ -107,4 +109,4 @@ const AgentCard = ({
   );
 };
 
-export default AgentCard;
+export default UserCard;
