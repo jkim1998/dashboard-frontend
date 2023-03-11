@@ -2,8 +2,8 @@ import Home from "./home/Home";
 import Message from "./Message";
 import { Login } from "./login";
 import MyProfile from "./my-profile";
-import Error from "./Error";
-import Loading from "./Loading";
+import Error from "./error";
+import Loading from "./loading";
 
 //user
 import CreateEmployee from "./employees/create-employees";
