@@ -1,6 +1,6 @@
 import Home from "./home/Home";
 import Message from "./Message";
-import { Login } from "./Login";
+import { Login } from "./login";
 import MyProfile from "./my-profile";
 import Error from "./Error";
 import Loading from "./Loading";
