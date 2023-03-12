@@ -43,6 +43,7 @@ import {
   CreateTicket,
   UpdateTickets,
 } from "./pages";
+
 interface User {
   name: string;
   email: string;
@@ -73,6 +74,7 @@ axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
 
 function App() {
   const [error, setError] = useState("");
+  const temp = process.env.REACT_APP_URL
   const authProvider: AuthProvider = {
     login: async ({
       email,
@@ -100,7 +102,7 @@ function App() {
         return Promise.resolve();
       } else if (email && password) {
         // Login with email/password logic
-        const url = `http://localhost:8080/api/v1/users?email=${email}`;
+        const url = `${temp}/api/v1/users?email=${email}`;
         const response = await fetch(url, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -157,7 +159,7 @@ function App() {
       //     body = JSON.stringify({ access_token: password });
       //     break;
       //   default:
-      url = "http://localhost:8080/api/v1/users";
+      url = `${temp}/api/v1/users`;
       body = JSON.stringify({ email, password });
       // }
 
@@ -217,14 +219,14 @@ function App() {
       }
     },
   };
-
+  console.log(temp)
   return (
     <ColorModeContextProvider>
       <CssBaseline />
       <GlobalStyles styles={{ html: { WebkitFontSmoothing: "auto" } }} />
       <RefineSnackbarProvider>
         <Refine
-          dataProvider={dataProvider("http://localhost:8080/api/v1")}
+          dataProvider={dataProvider(`${temp}/api/v1`)}
           // dataProvider={dataProvider("https://dashboard-server-aq1z.onrender.com/api/v1")}
           notificationProvider={notificationProvider}
           ReadyPage={ReadyPage}

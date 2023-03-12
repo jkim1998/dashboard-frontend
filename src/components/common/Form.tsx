@@ -576,6 +576,7 @@ const Form = ({
                     id="outlined-basic"
                     color="info"
                     variant="outlined"
+                    placeholder="(xxx) xxx-xxxx"
                     {...register("phone", { required: false })}
                   />
                 </FormControl>
@@ -599,6 +600,35 @@ const Form = ({
                   variant="outlined"
                   {...register("location", { required: false })}
                 />
+              </FormControl>
+              <FormControl sx={{ flex: 1 }}>
+                <FormHelperText
+                  sx={{
+                    fontWeight: 500,
+                    margin: "10px 0",
+                    fontSize: 16,
+                    color: "#11142d",
+                    textTransform: "capitalize",
+                  }}
+                >
+                  role
+                </FormHelperText>
+                <Select
+                  variant="outlined"
+                  color="info"
+                  displayEmpty
+                  required
+                  inputProps={{ "aria-label": "Without label" }}
+                  defaultValue="user"
+                  {...register("role", {
+                    required: true,
+                  })}
+                >
+                  <MenuItem value="admin">Admin</MenuItem>
+                  <MenuItem value="user">user</MenuItem>
+                  <MenuItem value="pm">Project Manager</MenuItem>
+                  <MenuItem value="developer">developer</MenuItem>
+                </Select>
               </FormControl>
             </>
           )}

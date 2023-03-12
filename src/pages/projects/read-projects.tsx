@@ -7,16 +7,13 @@ import {
   TextField,
   Select,
   MenuItem,
-  CircularProgress,
-  bgcolor,
 } from "@pankod/refine-mui";
 import { useNavigate } from "@pankod/refine-react-router-v6";
-import { useEffect, useMemo } from "react";
+import {  useMemo } from "react";
 
 import { ProjectCard, CustomButton } from "components";
 
 import { Error, Loading } from "../index";
-import { response } from "express";
 
 const ReadProjects = () => {
   const navigate = useNavigate();

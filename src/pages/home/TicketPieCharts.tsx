@@ -27,6 +27,7 @@ const PieCharts = () => {
     <Box mt="20px" display="flex" flexWrap="wrap" gap={3}>
       {ticketData.map((data) => (
         <PieChart
+          key={data.title}
           title={data.title}
           series={data.series}
           colors={data.colors}

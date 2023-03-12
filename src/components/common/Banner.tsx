@@ -14,8 +14,10 @@ import { BannerProps } from "interfaces/project.d";
 const Banner = ({ id, name, email, avatar, allProjects }: BannerProps) => {
   return (
     <>
-      <Typography fontWeight={700}>{id}</Typography>
-      <Typography>Active Projects</Typography>
+      <Typography key="id" fontWeight={700}>
+        {id}
+      </Typography>
+      <Typography key="projects">Active Projects</Typography>
     </>
   );
 };

@@ -11,7 +11,7 @@ export interface CustomButtonProps {
 
 export interface ProfileProps {
   type: string;
-  name: string;
+  name: string | undefined;
   avatar: string;
   email: string;
   projects: Array | undefined;

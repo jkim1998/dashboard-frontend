@@ -1,35 +1,20 @@
-import React, { useState } from "react";
+import { useState } from "react";
 /* eslint-disable no-restricted-globals */
 import {
   Box,
   Stack,
   Typography,
-  TextField,
-  Select,
-  MenuItem,
   TableContainer,
   Table,
   TableRow,
   TableCell,
   TableHead,
-  TableBody,
 } from "@pankod/refine-mui";
-import { useDelete, useGetIdentity, useShow } from "@pankod/refine-core";
-import { useParams, useNavigate } from "@pankod/refine-react-router-v6";
-import {
-  ChatBubble,
-  Delete,
-  Edit,
-  Phone,
-  Place,
-  Star,
-  ArrowDropDown,
-  ArrowDropUp,
-} from "@mui/icons-material";
+import { useNavigate } from "@pankod/refine-react-router-v6";
 import { Add } from "@mui/icons-material";
 import { useList } from "@pankod/refine-core";
 import { Error, Loading } from "../index";
-import { ProjectCard, CustomButton, TicketCard } from "components";
+import { CustomButton, TicketCard } from "components";
 
 const ProjectTicket = () => {
   const navigate = useNavigate();
@@ -95,18 +80,16 @@ const ProjectTicket = () => {
               </TableRow>
             </TableHead>
             {ticketData.map((ticket) => (
-              <>
-                <TicketCard
-                  key={ticket._id}
-                  title={ticket.title}
-                  description={ticket.description}
-                  type={ticket.type}
-                  status={ticket.status}
-                  creator={ticket.creator}
-                  priority={ticket.priority}
-                  project={ticket.project}
-                />
-              </>
+              <TicketCard
+                key={ticket._id}
+                title={ticket.title}
+                description={ticket.description}
+                type={ticket.type}
+                status={ticket.status}
+                creator={ticket.creator}
+                priority={ticket.priority}
+                project={ticket.project}
+              />
             ))}
           </Table>
         </TableContainer>

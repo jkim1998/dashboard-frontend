@@ -2,7 +2,6 @@ import { useGetIdentity, useOne } from "@pankod/refine-core";
 
 import { Profile } from "components";
 import { Error, Loading } from "./index";
-import { ProjectCard, CustomButton, TicketCard } from "components";
 
 const MyProfile = () => {
   const { data: user } = useGetIdentity();
@@ -10,12 +9,14 @@ const MyProfile = () => {
     resource: "users",
     id: user?.userid,
   });
-
+  console.log("qq", user);
   const myProfile = data?.data ?? [];
 
   if (isLoading) return <Loading />;
   if (isError) return <Error />;
 
+  const user1 = JSON.parse(localStorage.getItem("user") as string);
+  console.log(user1);
   return (
     <>
       <Profile

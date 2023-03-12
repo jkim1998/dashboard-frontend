@@ -1,28 +1,19 @@
 import React, { useState } from "react";
 import { Add } from "@mui/icons-material";
-import { useList, useOne, HttpError } from "@pankod/refine-core";
-import { useTable } from "@pankod/refine-core";
+import { useList } from "@pankod/refine-core";
 import {
   Box,
   Stack,
   Typography,
-  TextField,
-  Select,
-  MenuItem,
   TableContainer,
   Table,
   TableRow,
   TableCell,
   TableHead,
-  TableBody,
   TablePagination,
-  Button,
 } from "@pankod/refine-mui";
 import { useNavigate } from "@pankod/refine-react-router-v6";
-import { useMemo } from "react";
-
-import { Link } from "@pankod/refine-react-router-v6";
-import { ProjectCard, CustomButton, TicketCard } from "components";
+import { CustomButton, TicketCard } from "components";
 import { Error, Loading } from "../index";
 
 import TicketDetails from "./TicketDetails";
@@ -62,7 +53,6 @@ const ReadTickets = () => {
   const ticketData = data?.data ?? [];
   const totalCount = ticketData.length;
 
-  console.log(ticketData);
   if (isLoading) return <Loading />;
   if (isError) return <Error />;
 
@@ -104,9 +94,6 @@ const ReadTickets = () => {
   const hideDetail = () => {
     setDetail(false);
   };
-  console.log(ticketID);
-  // console.log("qqqqq:", ticketData[0].creator);
-  // console.log("asdfa:", totalCount);
   const handleSort = (column: string) => {
     if (sortColumn === column) {
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");

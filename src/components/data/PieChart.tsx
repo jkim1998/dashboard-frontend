@@ -19,7 +19,7 @@ const PieChart = ({ title, series, colors, labels }: PieChartProps) => {
       borderRadius="15px"
       minHeight="110px"
     >
-      <Stack width="100%" alignItems="left">
+      <Stack key={title} width="100%" alignItems="left">
         <Typography fontSize={14} color="#808191">
           {title}
         </Typography>

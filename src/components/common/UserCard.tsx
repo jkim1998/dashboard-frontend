@@ -1,5 +1,5 @@
 import { EmailOutlined, LocationCity, Phone, Place } from "@mui/icons-material";
-import CodeIcon from '@mui/icons-material/Code';
+import CodeIcon from "@mui/icons-material/Code";
 import { useGetIdentity } from "@pankod/refine-core";
 import { Box, Stack, Typography } from "@pankod/refine-mui";
 import { Link } from "@pankod/refine-react-router-v6";
@@ -29,14 +29,13 @@ const UserCard = ({
   location,
   avatar,
   numProject,
-  role
+  role,
 }: UserCardProp) => {
   const { data: currentUser } = useGetIdentity();
-
   const generateLink = () => {
     if (currentUser.email === email) return "/my-profile";
 
-    return `/employees/show/${id}`;
+    return `/users/show/${id}`;
   };
 
   return (
@@ -51,16 +50,12 @@ const UserCard = ({
         padding: "20px",
         "&:hover": {
           // boxShadow: "0 22px 45px 2px rgba(176,176,176,0.1)",
-          background: "#99ccff"
+          background: "#99ccff",
         },
       }}
     >
       <img
-        src={
-          checkImage(avatar)
-            ? avatar
-            : ""
-        }
+        src={checkImage(avatar) ? avatar : ""}
         alt="user"
         width={90}
         height={90}

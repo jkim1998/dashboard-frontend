@@ -34,7 +34,7 @@ const boxStyle = {
 };
 
 const font = {
-  fontWeight: 900,  
+  fontWeight: 900,
   color: "white",
   textShadow: "2px 2px 4px #000000",
 };
@@ -82,6 +82,7 @@ const Banners = () => {
     <Box mt="20px" display="flex" flexWrap="wrap" gap={4}>
       {DataCard.map((data) => (
         <Box
+          key={data.title}
           sx={{
             ...boxStyle,
             bgcolor: `${data.color}`,

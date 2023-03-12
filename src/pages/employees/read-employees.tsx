@@ -26,7 +26,7 @@ const Agents = () => {
   const pageButtons = Array.from({ length: numPages }, (_, i) => i + 1);
 
   const totalPage = Math.ceil(allEmployees.length / PAGE_SIZE);
-  console.log(totalPage);
+  console.log("page: ", totalPage);
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };

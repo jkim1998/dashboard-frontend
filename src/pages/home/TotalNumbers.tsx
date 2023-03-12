@@ -101,7 +101,7 @@ const TotalNumbers = () => {
 
       <Stack marginTop="20px" direction="column" gap={4}>
         {userRole.map((data) => (
-          <Box sx={{ ...columnBorder }}>
+          <Box sx={{ ...columnBorder }} key={data.role}>
             <Box sx={{ ...iconBox }}>{data.icon}</Box>
             <Stack sx={{ ...stackColumn }}>
               <Typography sx={{ ...font }}>{data.role}</Typography>

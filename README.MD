@@ -32,6 +32,7 @@ url: https://dashboard-server-aq1z.onrender.com | http://localhost:8080 (npm sta
     -login
         create account
         sign in with github, other SSO
+        google sign doesn't create account
 
     -tickets 
         sort
@@ -40,22 +41,15 @@ url: https://dashboard-server-aq1z.onrender.com | http://localhost:8080 (npm sta
             works but not displaying more than 10
         search bar 
             by category
-        design
 
     -employee
-        Update
         Delete
-        design 
 
     -projects    
         Create/Update
             member
                 not being passed
 
-    -user profile 
-        Update
-        design
-    
     -admin previleges 
         -admin
             -all previllege 

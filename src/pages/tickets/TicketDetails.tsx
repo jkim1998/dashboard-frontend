@@ -1,35 +1,10 @@
-import React, { useState } from "react";
-import { Add } from "@mui/icons-material";
-import { useList } from "@pankod/refine-core";
-import { useTable } from "@pankod/refine-core";
-import {
-  useDelete,
-  useGetIdentity,
-  useShow,
-  useOne,
-} from "@pankod/refine-core";
-import {
-  Box,
-  Stack,
-  Typography,
-  TextField,
-  Select,
-  MenuItem,
-  TableContainer,
-  Table,
-  TableRow,
-  TableCell,
-  TableHead,
-  TableBody,
-  Button,
-  styled,
-} from "@pankod/refine-mui";
+import React from "react";
+import { useDelete, useGetIdentity, useOne } from "@pankod/refine-core";
+import { Box, Stack, Typography, Button, styled } from "@pankod/refine-mui";
 import { useNavigate } from "@pankod/refine-react-router-v6";
-import { useMemo } from "react";
 import { MouseEvent } from "react";
 
-import { ProjectCard, CustomButton, TicketCard } from "components";
-import { Error, Loading } from "../index";
+import { CustomButton } from "components";
 import { ProjectImage } from "assets";
 import FindUserWithID from "components/query/FindUserWithID";
 import FindProjectWithID from "components/query/FindProjectWithID";
