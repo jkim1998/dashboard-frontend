@@ -44,10 +44,25 @@ const Banners = () => {
     data: TotalProject,
     isLoading,
     error,
-  } = useList<Project>({ resource: "projects" });
+  } = useList<Project>({
+    resource: "projects",
+    config: {
+      hasPagination: false,
+    },
+  });
 
-  const { data: TotalTicket } = useList<Ticket>({ resource: "tickets" });
-  const { data: TotalUser } = useList<User>({ resource: "users" });
+  const { data: TotalTicket } = useList<Ticket>({
+    resource: "tickets",
+    config: {
+      hasPagination: false,
+    },
+  });
+  const { data: TotalUser } = useList<User>({
+    resource: "users",
+    config: {
+      hasPagination: false,
+    },
+  });
 
   const project: Project[] = TotalProject?.data ?? [];
   const ticket: Ticket[] = TotalTicket?.data ?? [];

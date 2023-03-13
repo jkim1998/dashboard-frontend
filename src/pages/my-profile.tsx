@@ -21,6 +21,7 @@ const MyProfile = () => {
     <>
       <Profile
         type="My"
+        id={myProfile._id}
         name={myProfile.name}
         email={myProfile.email}
         avatar={myProfile.avatar}

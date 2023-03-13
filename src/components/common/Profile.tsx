@@ -14,6 +14,7 @@ function checkImage(url: any) {
 }
 
 const Profile = ({
+  id,
   type,
   name,
   avatar,
@@ -26,25 +27,58 @@ const Profile = ({
   const { data: user } = useGetIdentity();
   const { queryResult } = useShow();
   const { mutate } = useDelete();
-  const { id } = useParams();
+  const { ID } = useParams();
   const [dropdown, setDropdown] = useState(false);
 
   const { data, isLoading, isError } = queryResult;
 
   const userInfo = data?.data ?? {};
+
+  const handleDeleteProject = () => {
+    const response = window.confirm(
+      "Are you sure you want to delete this User?"
+    );
+    if (response) {
+      mutate(
+        {
+          resource: "users",
+          id: id as string,
+        },
+        {
+          onSuccess: () => {
+            navigate("/users");
+            console.log("successfully deleted User");
+          },
+          onError: () => {
+            console.log("error occured");
+          },
+        }
+      );
+    }
+  };
+
   return (
     <Box>
       <Stack direction="row" justifyContent="space-between">
         <Typography fontSize={25} fontWeight={700} color="#11142D">
           {type} Profile
         </Typography>
-        <CustomButton
-          title={"edit"}
-          backgroundColor={"#d42e2e"}
-          color="#FCFCFC"
-          // icon={dropdown ? <ArrowDropUp /> : <ArrowDropDown />}
-          handleClick={() => navigate(`/users/edit/${userInfo._id}`)}
-        />
+        <Stack direction="row" gap={1}>
+          <CustomButton
+            title={"edit"}
+            backgroundColor={"#d42e2e"}
+            color="#FCFCFC"
+            // icon={dropdown ? <ArrowDropUp /> : <ArrowDropDown />}
+            handleClick={() => navigate(`/users/edit/${userInfo._id}`)}
+          />
+          <CustomButton
+            title={"delet user"}
+            backgroundColor={"#d42e2e"}
+            color="#FCFCFC"
+            // icon={dropdown ? <ArrowDropUp /> : <ArrowDropDown />}
+            handleClick={() => handleDeleteProject()}
+          />
+        </Stack>
       </Stack>
 
       <Box mt="20px" borderRadius="15px" padding="20px" bgcolor="#FCFCFC">

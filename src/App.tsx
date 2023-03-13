@@ -171,7 +171,6 @@ function App() {
 
       const data = await response.json();
       if (response.status === 200) {
-        console.log("4");
         localStorage.setItem(
           "user",
           JSON.stringify({

@@ -12,7 +12,6 @@ const EmployeeProfile = () => {
     id: id as string,
   });
 
-  console.log(data);
 
   const myProfile = data?.data ?? [];
 
@@ -22,6 +21,7 @@ const EmployeeProfile = () => {
   return (
     <Profile
       type="Employee"
+      id={myProfile._id}
       name={myProfile.name}
       email={myProfile.email}
       avatar={myProfile.avatar}

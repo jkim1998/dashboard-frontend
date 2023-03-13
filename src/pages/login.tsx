@@ -1,9 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLogin, AuthPage } from "@pankod/refine-core";
-import {
-  Box,
-  Button,
-} from "@pankod/refine-mui";
+import { Box, Button } from "@pankod/refine-mui";
 
 import { Icon } from "../assets";
 
@@ -67,10 +64,20 @@ export const Login: React.FC = () => {
   };
 
   const TestAdmin = () => {
+    const [email, setEmail] = useState("admin1@gmail.com");
+    const [password, setPassword] = useState(
+      "wertgwsdiuhsdiufhasodfbasjkbaxjkcvbaldhfugiasdhf"
+    );
+
+    const Login = () => {
+    }
+
+    console.log("test admin:", process.env.REACT_APP_TEST_ADMIN);
     return (
       <Box>
         <Button
           sx={{ display: "flex", width: 180, height: 30, bgcolor: "red" }}
+          onClick={Login}
         >
           Test Admin
         </Button>
@@ -107,7 +114,6 @@ export const Login: React.FC = () => {
         wrapperProps={{
           style: {
             background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
-           
           },
         }}
       />

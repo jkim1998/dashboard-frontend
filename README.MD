@@ -27,32 +27,37 @@ url: https://dashboard-server-aq1z.onrender.com | http://localhost:8080 (npm sta
 # must
 
     -home
-        dynamic data mapping
+        users by role
+        tickets pie graph
+        tickets bar graph
+        analytics
 
     -login
-        create account
         sign in with github, other SSO
         google sign doesn't create account
+        customize AuthPage or make new 
+            name
+            role= user
+            phone
+            avatar
+            location
 
     -tickets 
-        sort
-            by id
-        pagination
-            works but not displaying more than 10
-        search bar 
-            by category
+        sort by id
+        search bar by category
 
     -employee
         Delete
 
     -projects    
         Create/Update
-            member
-                not being passed
+            member not being passed
 
     -admin previleges 
         -admin
             -all previllege 
+            -change other users' role 
+            -delete user
         -project manager
             -developer
             -Create, Update, Delete projects 

@@ -69,7 +69,6 @@ const Form = ({
         })
       );
     }
-    console.log("user:", selectedUsers);
   };
 
   const handleDelete = (userId: string) => {

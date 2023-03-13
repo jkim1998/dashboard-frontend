@@ -110,7 +110,9 @@ const TicketDetails: React.FC<TicketDetailsProps> = ({
           width="100%"
         >
           <Typography>id: {id}</Typography>
-          <Typography>priority: {priority}</Typography>
+          <Typography>
+            {status === "close" ? "Completed" : "priority: " + priority}
+          </Typography>
           <Typography>type: {type}</Typography>
           <Typography>
             project#:

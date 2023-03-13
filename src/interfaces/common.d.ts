@@ -10,6 +10,7 @@ export interface CustomButtonProps {
 }
 
 export interface ProfileProps {
+  id: string;
   type: string;
   name: string | undefined;
   avatar: string;

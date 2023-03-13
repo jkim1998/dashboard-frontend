@@ -20,7 +20,7 @@ const UpdateEmployees = () => {
         fileReader.onload = () => resolve(fileReader.result as string);
         fileReader.readAsDataURL(readFile);
       });
-  
+
     reader(file).then((result: string) =>
       setProjectImage({ name: file?.name, url: result })
     );
@@ -28,7 +28,7 @@ const UpdateEmployees = () => {
 
   const onFinishHandler = async (data: FieldValues) => {
     // if (!screenshot.name) return alert("Please upload a project image");
-  
+
     await onFinish({
       ...data,
       avatar: screenshot.url,

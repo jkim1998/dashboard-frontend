@@ -43,7 +43,12 @@ interface User {
 const ReadTickets = () => {
   const navigate = useNavigate();
   const [ticketID, setTicketID] = useState<string[] | undefined>(undefined);
-  const { data, isLoading, isError } = useList({ resource: "tickets" });
+  const { data, isLoading, isError } = useList({
+    resource: "tickets",
+    config: {
+      hasPagination: false,
+    },
+  });
   const [detail, setDetail] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);

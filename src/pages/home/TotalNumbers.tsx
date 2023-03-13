@@ -1,7 +1,7 @@
-import { Box, Stack, Typography } from "@pankod/refine-mui";
+import { Box, Pagination, Stack, Typography } from "@pankod/refine-mui";
 import { MdEngineering, MdGroups2 } from "react-icons/md";
 import { IoMdContact, IoMdPerson } from "react-icons/io";
-import { useList } from "@pankod/refine-core";
+import { useList, HttpError } from "@pankod/refine-core";
 import { Error, Loading } from "../index";
 
 interface Project {
@@ -18,8 +18,8 @@ interface Ticket {
 
 interface User {
   _id: string;
-  title: string;
-  description: string;
+  name: string;
+  role: string;
 }
 
 const columnBorder = {
@@ -53,16 +53,53 @@ const TotalNumbers = () => {
   } = useList<Project>({ resource: "projects" });
 
   const { data: TotalTicket } = useList<Ticket>({ resource: "tickets" });
-  const { data: TotalUser } = useList<User>({ resource: "users" });
-  const { data: developers } = useList<User>({ resource: "users" });
-  const { data: ProjectManager } = useList<User>({ resource: "users" });
+  const { data: TotalUser } = useList<User>({
+    resource: "users",
+    config: {
+      hasPagination: false,
+    },
+  });
+  const { data: Admin } = useList<User, HttpError>({
+    resource: "users",
+    config: {
+      hasPagination: false,
+      filters: [{ field: "role", operator: "eq", value: "admin" }],
+    },
+  });
+  const { data: Developer } = useList<User>({
+    resource: "users",
+    config: {
+      hasPagination: false,
+      filters: [
+        {
+          field: "role",
+          operator: "eq",
+          value: "admin",
+        },
+      ],
+    },
+  });
+  const { data: projectManagers } = useList<User>({
+    resource: "users",
+    config: {
+      pagination: {
+        pageSize: 1,
+      },
+      filters: [{ field: "role", operator: "eq", value: "project manager" }],
+    },
+  });
 
   const project: Project[] = TotalProject?.data ?? [];
   const ticket: Ticket[] = TotalTicket?.data ?? [];
   const user: User[] = TotalUser?.data ?? [];
-  const dev: User[] = developers?.data ?? [];
-  const pm: User[] = ProjectManager?.data ?? [];
+  const admin: User[] = Admin?.data ?? [];
+  const dev: User[] = Developer?.data ?? [];
+  const projectManager = projectManagers?.data?.[0];
 
+  console.log("admin:", admin);
+  // console.log("user:", user.length);
+  // console.log("dev:", dev.length);
+  // console.log("on:", pm.length);
   if (isLoading) return <Loading />;
   if (error) return <Error />;
 
@@ -71,18 +108,23 @@ const TotalNumbers = () => {
       icon: <IoMdContact style={{ fontSize: 30 }} />,
       role: "Project Manager",
       data: "Jonathan Kim",
+      // data: projectManager?.name,
     },
     {
       icon: <MdEngineering style={{ fontSize: 30 }} />,
       role: "Developers",
-      data: 999,
+      data: dev.length,
     },
     {
       icon: <IoMdPerson style={{ fontSize: 30 }} />,
       role: "Admin",
-      data: 999,
+      data: admin.length,
     },
-    { icon: <MdGroups2 style={{ fontSize: 30 }} />, role: "Users", data: 999 },
+    {
+      icon: <MdGroups2 style={{ fontSize: 30 }} />,
+      role: "Users",
+      data: user.length,
+    },
   ];
 
   return (

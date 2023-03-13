@@ -105,7 +105,8 @@ const TicketCard = ({
             height: "100%",
           }}
         >
-          {priority ? priority : "urgent"}
+          {status === "close" ? "Completed" :  priority}
+          {/* {priority ? priority : "urgent"} */}
         </Typography>
       </TableCell>
       <TableCell
